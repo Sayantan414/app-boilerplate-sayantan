@@ -120,13 +120,5 @@
       "Delete Staff Hierarchy Master",
       "View Staff Hierarchy Master"
     ]
-  },
-  {
-    "name": "PLANNINGADMIN",
-    "privilege": []
-  },
-  {
-    "name": "PLANNINGUSER",
-    "privilege": []
   }
 ]

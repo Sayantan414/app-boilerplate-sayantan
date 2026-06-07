@@ -144,25 +144,5 @@
       "Delete Prime Progress",
       "View Prime Progress"
     ]
-  },
-  {
-    "name": "PLANNINGADMIN",
-    "privilege": [
-      "Add Prime Target",
-      "Edit Prime Target",
-      "Delete Prime Target",
-      "View Prime Target",
-      "Add Prime Progress",
-      "Edit Prime Progress",
-      "Delete Prime Progress",
-      "View Prime Progress"
-    ]
-  },
-  {
-    "name": "PLANNINGUSER",
-    "privilege": [
-      "View Prime Target",
-      "View Prime Progress"
-    ]
   }
 ]

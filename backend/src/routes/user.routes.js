@@ -16,6 +16,7 @@ router.post('/refresh-token', userController.refreshToken);
 router.get('/me', auth, userController.getMe);
 
 // CRUD routes
+// router.post('/create', auth, requirePrivilege('Add User'), validate(userValidation.create), userController.create);
 router.post('/create', validate(userValidation.create), userController.create);
 router.post('/update', auth, requirePrivilege('Edit User'), validate(userValidation.update), userController.update);
 router.post('/delete', auth, requirePrivilege('Delete User'), userController.remove);
