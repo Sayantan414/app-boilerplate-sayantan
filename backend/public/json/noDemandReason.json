@@ -1,0 +1,366 @@
+[
+  {
+    "department": "Sig. & Tele.",
+    "reason": "ALREADY DONE"
+  },
+  {
+    "department": "TRD",
+    "reason": "Attended breakdown / failure"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Bad Weather"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Bad Weather (Heavy Rain & Water Logging)."
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Bad Weather(Heavy Rain & Water Logging)"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Block Planned time or date changed by Operating."
+  },
+  {
+    "department": "Engg.",
+    "reason": "Block not Granted By OPTG."
+  },
+  {
+    "department": "Engg.",
+    "reason": "Block not demanded by CNST / GSU Unit : Engg/S&T/RE"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Block not demanded by Engineering"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Block withdrawal by PWI As Less block Granted."
+  },
+  {
+    "department": "Engg.",
+    "reason": "CAUTIN NOT GRANTED"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Caution not accepted"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Contractor labour not turnup"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Crane failure / maintenance"
+  },
+  {
+    "department": "Engg.",
+    "reason": "DATE EXTENDED"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "DATE EXTENDED"
+  },
+  {
+    "department": "Engg.",
+    "reason": "DMT Work in other location"
+  },
+  {
+    "department": "Engg.",
+    "reason": "DMT is not given fit by TXR"
+  },
+  {
+    "department": "Engg.",
+    "reason": "DMT(Rail/sleeper/ballast/stone dust) not placed at sight"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Demand not showing in software due to technical glitche."
+  },
+  {
+    "department": "Engg.",
+    "reason": "Demand wrongly date added in Software due to technical/ server issue"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Due to Planned at Multiple location"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Due to Previous work not completed"
+  },
+  {
+    "department": "TRD",
+    "reason": "ENGAGE IN ANY OTHER EMERGENCY MAINTENANCE ACTIVITY"
+  },
+  {
+    "department": "TRD",
+    "reason": "ENGAGEMENT IN SCHEDULE TOOL/EQUIPEMENT TESTING"
+  },
+  {
+    "department": "TRD",
+    "reason": "ENGEGEMENT IN ANY FAILURE"
+  },
+  {
+    "department": "TRD",
+    "reason": "ENGEGEMENT IN HIGH OFFICIAL INSPECTION PROGRAM"
+  },
+  {
+    "department": "TRD",
+    "reason": "Engagement in inspection of higher officials"
+  },
+  {
+    "department": "TRD",
+    "reason": "Engagement in other special / emergency maintenance work"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Engineering Block not allowed by operating"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Excess water in river"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Initally block not granted. And later rainfall And bad weather prevalled ."
+  },
+  {
+    "department": "Engg.",
+    "reason": "Labour Not Available"
+  },
+  {
+    "department": "TRD",
+    "reason": "MAN POWER DEPUTED IN OTER DEPARTMENT ACTIVITIES"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Man Power not available due to valid reason"
+  },
+  {
+    "department": "TRD",
+    "reason": "Manpower deputed for other department activities/Engineering Machine"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Material not available"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Multiple Work at Same Location"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "NOT OFFER DUE TO COMPANY STAFF NOT AVAILABLE"
+  },
+  {
+    "department": "Engg.",
+    "reason": "NOT OFFER DUE TO SHORTAGE OF STAFF"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "NOT OFFER DUE TO STAFF ENGAGE IN ENGG. WORK"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Operating not ready"
+  },
+  {
+    "department": "Engg.",
+    "reason": "P.Way material not available"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Power not Provided in DMT"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Programmed cancelled by operating"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Resource Diverted at Other Location"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Resource Diverted due to Caution Relaxation"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Resource Diverted due to Emergency Work"
+  },
+  {
+    "department": "Engg.",
+    "reason": "S& T staff not available"
+  },
+  {
+    "department": "Engg.",
+    "reason": "STAFF NOT AVAILABLE DUE TO ROASTER CHANGED"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Scope of work exhausted"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Shortage of Manpower"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Small Track Machine Break down"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Staff Engage in any failure"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Staff Engage in any higher Official Inspection"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Staff Engage in any specific work like Sig. Sighting, Safety Drive, etc."
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Staff Engage in other Disconnection due to Material Faulty"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Staff Engage with other department joint work"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Staff not provided by S & T."
+  },
+  {
+    "department": "Engg.",
+    "reason": "Staff shifted to other site"
+  },
+  {
+    "department": "Engg.",
+    "reason": "TOWER WAGON FAILURE"
+  },
+  {
+    "department": "TRD",
+    "reason": "TOWER WAGON FAILURE"
+  },
+  {
+    "department": "TRD",
+    "reason": "TRACK MACHINE NOT AVAILABLE DUE TO BASE SHIFTING."
+  },
+  {
+    "department": "Engg.",
+    "reason": "TRD staff not available"
+  },
+  {
+    "department": "TRD",
+    "reason": "TW TXR /UST CHECING/FUELING"
+  },
+  {
+    "department": "TRD",
+    "reason": "TW TXR /UST CHECKING/FUELING"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Temprature not gained"
+  },
+  {
+    "department": "TRD",
+    "reason": "Tower wagon material and tools/tackles shifting"
+  },
+  {
+    "department": "TRD",
+    "reason": "Tower wagon monthly maintenance/TXR/UST checking"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track Machine Break down"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track Machine staff not available"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track Machine work on Other Line due to emergency"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track Machine worked in other locations"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track machine Base Shift"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track machine Maintenance"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track machine Roster change"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track machine Staff Shift"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track machine working closed due to Festival"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Trackmachine Maintenance"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Trackmachine working closed due to Festival"
+  },
+  {
+    "department": "TRD",
+    "reason": "UNAVAILABILITY OF MANPOWER FOR VALID REASON"
+  },
+  {
+    "department": "TRD",
+    "reason": "WORKED IN MEGA BLOCKS"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Welding Batch not available"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Welding Machine breakdown"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Work already completed"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Work completed during Mega Block"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Work not done in station section by Engg."
+  },
+  {
+    "department": "TRD",
+    "reason": "Worked in Mega Block"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Wrong Entry"
+  },
+  {
+    "department": "Engg.",
+    "reason": "loco pilot & guard not provided"
+  },
+  {
+    "department": "Engg.",
+    "reason": "other reason"
+  }
+]

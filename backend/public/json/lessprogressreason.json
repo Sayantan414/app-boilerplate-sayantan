@@ -1,0 +1,58 @@
+[
+  {
+    "department": "TRD",
+    "reason": "BLOCK GRANTED LESS THAN DEMANDED"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Bad weather"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Contractor labour leave site early."
+  },
+  {
+    "department": "TRD",
+    "reason": "DUE TO ANY UNFORSEEN CIRCUMSTANCES"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Planned Time of SI-4 Not Allowed"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Scope of work reduced."
+  },
+  {
+    "department": "Engg.",
+    "reason": "Small Track Machine Break down during block"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Sufficient time of disconnection not allowed"
+  },
+  {
+    "department": "TRD",
+    "reason": "TW COULDN'T MOVED TO DESIRED SECTION"
+  },
+  {
+    "department": "TRD",
+    "reason": "TW FAILURE"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Temprature not within maintenance temperature as per IRPWM"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Track Machine Break down during block"
+  },
+  {
+    "department": "Sig. & Tele.",
+    "reason": "Ufficient time of disconnection not allowed"
+  },
+  {
+    "department": "Engg.",
+    "reason": "Unforeseen Circumstances"
+  }
+]

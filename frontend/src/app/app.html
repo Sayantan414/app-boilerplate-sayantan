@@ -1,0 +1,7 @@
+<router-outlet></router-outlet>
+
+<ui-confirm-dialog [isOpen]="confirmService.isOpen()" [data]="confirmService.data()"
+  (onConfirm)="confirmService.handleConfirm()" (onCancel)="confirmService.handleCancel()">
+</ui-confirm-dialog>
+
+<ui-snackbar></ui-snackbar>

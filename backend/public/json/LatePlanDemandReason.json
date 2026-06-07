@@ -1,0 +1,94 @@
+[
+    {
+      "department": "TRD",
+      "reason": "Due to point slew work of pwi"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Emergency work by Telecom"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Emergency work for replacement of defective S&T assets."
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Joint work with CNST/GSU: Engg/S&T/RE."
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Joint work with Engg.: Late Planned by Engg."
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Late submitted/ Planned."
+    },
+    {
+      "department": "TRD",
+      "reason": "N/I WORK SHADOW BLOCK UTILIZATION"
+    },
+    {
+      "department": "TRD",
+      "reason": "OHE Eraction work by RE dept"
+    },
+    {
+      "department": "TRD",
+      "reason": "Previous block not sanctioned by SCNL so Re-submission of Planned Block"
+    },
+    {
+      "department": "Engg.",
+      "reason": "RESUBIMISSION OF SHADOW BLOCK"
+    },
+    {
+      "department": "Engg.",
+      "reason": "RESUBMISSION OF SECONDARY PLANNED WORK"
+    },
+    {
+      "department": "Engg.",
+      "reason": "Re-submission of Planned Block"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Re-submission of Planned Block"
+    },
+    {
+      "department": "TRD",
+      "reason": "Re-submission of Planned Block"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Rejected in previous demand day."
+    },
+    {
+      "department": "Engg.",
+      "reason": "SHADOW BLOCK"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "SI/4 not allowed on Previous Planned Day"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Work noted during Maintenance/ Checking/ Inspection."
+    },
+    {
+      "department": "Engg.",
+      "reason": "caution not relaxed on other section on time"
+    },
+    {
+      "department": "TRD",
+      "reason": "emergency Work Deficiency found during F/P"
+    },
+    {
+      "department": "Sig. & Tele.",
+      "reason": "Copied from another demand in late plan period"
+    },
+    {
+      "department": "Engg.",
+      "reason": "Copied from another demand in late plan period"
+    },
+    {
+      "department": "TRD",
+      "reason": "Copied from another demand in late plan period"
+    }
+  ]

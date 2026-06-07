@@ -1,0 +1,214 @@
+[
+    {
+        "department": "Engg.",
+        "reason": ".\tDue to urgent maintanance work"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Availed shadow block under mega block."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Availing Shadow Block Under Mega Block"
+    },
+    {
+        "department": "Sig. & Tele.",
+        "reason": "Availing Shadow Block Under Mega Block"
+    },
+    {
+        "department": "TRD",
+        "reason": "Availing Shadow Block Under Mega Block"
+    },
+    {
+        "department": "Engg.",
+        "reason": "BLOCK NOT GRANTED ON PLANNED DATE."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Caution relaxation"
+    },
+    {
+        "department": "Sig. & Tele.",
+        "reason": "Due to Maintenance- Earlier Planned but not granted."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Due to availability of skilled manpower."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Due to emergency"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Due to late arrival of Block sanctioned date ."
+    },
+    {
+        "department": "TRD",
+        "reason": "Emergency maintenance activity"
+    },
+    {
+        "department": "TRD",
+        "reason": "Engagement in Breakdown restoration."
+    },
+    {
+        "department": "Engg.",
+        "reason": "For attending failure"
+    },
+    {
+        "department": "Engg.",
+        "reason": "For attending foot patrolling / footplate observation"
+    },
+    {
+        "department": "Engg.",
+        "reason": "For breakdown restoration"
+    },
+    {
+        "department": "Engg.",
+        "reason": "For emergency maintenance activity"
+    },
+    {
+        "department": "TRD",
+        "reason": "For urgent special work"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Glued failure"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Joint Work with Engg."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Joint work with CNST/GSU: Engg/S&T/RE."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Less block granted priviously"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Location change."
+    },
+    {
+        "department": "Engg.",
+        "reason": "MACHINE WORKING REQUIRED AS MACHINE WAS BREAKDOWN PRIVIOUSLY"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Non pre-informed joint work with Engineering Department"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Not Submitted in Planned Block due to technical/Server issues."
+    },
+    {
+        "department": "Engg.",
+        "reason": "PLAANED BLOCK not granted by Operating"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Planned block in corridor rejected by cnL"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Rail /Weld failure"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Rejected in planned block."
+    },
+    {
+        "department": "Engg.",
+        "reason": "S&T gears replacment is required on urgent basis which is not given in planned block"
+    },
+    {
+        "department": "Engg.",
+        "reason": "SI/4 not allowed on Previous Planned Day"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Safety Checking during inspection of supervisor/ officer."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Shifting of location due to urgent maintenance of track"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Shifting of track machine due to urgent required."
+    },
+    {
+        "department": "Engg.",
+        "reason": "Shifting work in connection with Amrit Bharat Scheme"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Site ready beforehand"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Skv welding required due to Engg. Assets failure."
+    },
+    {
+        "department": "Engg.",
+        "reason": "TW defect/TXR Cheking"
+    },
+    {
+        "department": "Engg.",
+        "reason": "TWS change due to defective Tongue and stock rail"
+    },
+    {
+        "department": "Engg.",
+        "reason": "To attend USFD defects"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Track machine Roster change"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Type of equipment failure."
+    },
+    {
+        "department": "Engg.",
+        "reason": "UML location identified by OMS/TRC"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Urgent DMT work"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Urgent maintance work detected during inspection"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Weld spoil"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Work in Unplanned program"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Work in connection with yard remodeling."
+    },
+    {
+        "department": "Engg.",
+        "reason": "X-over checking/Gantry maintenance"
+    },
+    {
+        "department": "Engg.",
+        "reason": "Copied from Another Demand in Unplanned period"
+    },
+    {
+        "department": "Sig. & Tele.",
+        "reason": "Copied from Another Demand in Unplanned period"
+    },
+    {
+        "department": "TRD",
+        "reason": "Copied from Another Demand in Unplanned period"
+    }
+]

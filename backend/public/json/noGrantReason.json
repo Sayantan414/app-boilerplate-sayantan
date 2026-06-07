@@ -1,0 +1,68 @@
+ [
+    {
+      "reason": "Allowed duration is less than planned"
+    },
+    {
+      "reason": "BLOCK DENIED BY CNL MLDT"
+    },
+    {
+      "reason": "BLOCK GRANTED BUT WRONGLY ENTERED"
+    },
+    {
+      "reason": "BLOCK GRANTED TO OTHER ADJACENT SECTION"
+    },
+    {
+      "reason": "BLOCK GRANTED TO OTHER DEPTT IN SAME TIME"
+    },
+    {
+      "reason": "BLOCK NOT DEMANDED IN CORRIDOR HOURS"
+    },
+    {
+      "reason": "BUNCHING OF TRAINS"
+    },
+    {
+      "reason": "Block denied by traffic CNL"
+    },
+    {
+      "reason": "Block not demanded by Engg"
+    },
+    {
+      "reason": "CORRIDOR NOT AVAILABLE FOR BOTH UP/DN DIRECTION"
+    },
+    {
+      "reason": "DENIED BY HIGHER AUTHORITY"
+    },
+    {
+      "reason": "DUE TO M/E/PASS TRAIN LATE RUNNING"
+    },
+    {
+      "reason": "DUE TO TOD/DIVERTED TRAINS"
+    },
+    {
+      "reason": "Initially block was not granted and later bad weather prevailed."
+    },
+    {
+      "reason": "JOINT NOTE NOT READY"
+    },
+    {
+      "reason": "MACHINE IS NOT IN PROPER WORKING CONDITION"
+    },
+    {
+      "reason": "Not allowed not written by Station Master."
+    },
+    {
+      "reason": "Reason not mentioned by Station Master."
+    },
+    {
+      "reason": "SHORTAGE OF MAN POWER"
+    },
+    {
+      "reason": "SI/4 not received by Station Master."
+    },
+    {
+      "reason": "SUPPLY OF GOODS TRAINS"
+    },
+    {
+      "reason": "TW/Machine couldn't moved by section controller to desired section on time."
+    }
+  ]

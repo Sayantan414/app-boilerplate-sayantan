@@ -1,0 +1,192 @@
+<div class="flex-1 flex flex-col min-h-0 h-full pb-4">
+  <header class="flex flex-wrap justify-between items-center gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-foreground tracking-tight m-0">Role Management</h1>
+    </div>
+    <div class="flex items-center gap-4 flex-wrap max-sm:w-full max-sm:justify-between">
+      <div class="relative max-sm:flex-1">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <input type="text" class="w-[240px] pl-10 pr-4 py-2 border border-border rounded-md bg-background text-sm focus:outline-none focus:ring-1 focus:ring-primary max-sm:w-full" placeholder="Search roles..." [ngModel]="searchQuery()"
+          (ngModelChange)="onSearchQueryChange($event)">
+      </div>
+
+      <ui-button variant="outline" (click)="openFilterDrawer()" class="max-sm:flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+          </svg>
+          <span>Filters</span>
+          @if (activeFilterCount() > 0) {
+          <span class="bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-semibold">{{ activeFilterCount() }}</span>
+          }
+        </div>
+      </ui-button>
+
+      <ui-button (click)="openAddModal()" class="max-sm:flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14" />
+          <path d="M12 5v14" />
+        </svg>
+        Add Role
+      </ui-button>
+    </div>
+  </header>
+
+  <div class="flex-1 flex flex-col min-h-0 mb-0">
+    @if (isLoading()) {
+    <ui-table-skeleton [columns]="3" [rows]="6" class="w-full"></ui-table-skeleton>
+    } @else {
+    <ui-table [columns]="columns" [data]="filteredRoles()"
+      emptyMessage="No roles found. Try adding a new role or adjusting your search."
+      (onAction)="handleAction($event)"></ui-table>
+    }
+  </div>
+
+  <!-- Add/Edit Role Modal -->
+  <form [formGroup]="roleForm" (ngSubmit)="roleForm.valid && saveRole()">
+    <ui-modal [isOpen]="isAddModalOpen()" [title]="isEditMode() ? 'Edit Role' : 'Create New Role'"
+      [description]="isEditMode() ? 'Modify details and configure privileges below to update the system role.' : 'Provide a name and select privileges to create a new system role.'"
+      size="md" (onClose)="closeModal()">
+
+      <div class="flex flex-col gap-4 py-2">
+        <!-- Form Fields Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Role Name</mat-label>
+            <input matInput placeholder="e.g. OPERATOR" formControlName="name">
+            @if (roleForm.get('name')?.hasError('required')) {
+            <mat-error>Role name is required</mat-error>
+            }
+            @if (roleForm.get('name')?.hasError('minlength')) {
+            <mat-error>Must be at least 2 characters</mat-error>
+            }
+          </mat-form-field>
+
+          @if (isEditMode()) {
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Account Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="Active">Active</mat-option>
+              <mat-option value="Inactive">Inactive</mat-option>
+            </mat-select>
+          </mat-form-field>
+          }
+        </div>
+
+        <!-- Selected privileges count tracker -->
+        <div class="flex flex-wrap items-center justify-between p-3 bg-primary/5 border border-primary/15 rounded-md mb-2 gap-[10px]">
+          <div class="flex items-center gap-3">
+            <span class="text-sm font-semibold text-primary">Selected Privileges</span>
+            <span class="bg-primary text-primary-foreground px-3 py-1 rounded-full text-[0.8125rem] font-bold shadow-[0_2px_4px_hsl(var(--primary)/0.2)]">{{ privilegeCount() }}</span>
+          </div>
+          <div class="flex items-center">
+            <mat-checkbox [checked]="areAllGlobalSelected()" [indeterminate]="areSomeGlobalSelected()"
+              (change)="toggleAllGlobal()" color="primary" class="m-0">
+              Select All System Privileges
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <!-- Features Selection Dropdown -->
+        <div class="mt-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Configure Feature Privileges</mat-label>
+            <mat-select [value]="selectedFeature()" (selectionChange)="onFeatureChange($event.value)">
+              @for (item of privilegesData(); track item.feature) {
+              <mat-option [value]="item.feature">{{ item.feature }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Privileges list card -->
+        @if (selectedFeature() && dataLoaded()) {
+        <div class="flex flex-col border border-border rounded-lg bg-card overflow-hidden shadow-sm">
+          <div class="flex justify-between items-center px-4 py-3 bg-muted/50 border-b border-border">
+            <span class="text-sm font-semibold text-foreground">Access Privileges for {{ selectedFeature() }}</span>
+            <mat-checkbox [checked]="areAllSelected()" [indeterminate]="areSomeSelected()"
+              (change)="toggleAllForFeature()" color="primary">
+              Select All
+            </mat-checkbox>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4 max-h-[260px] overflow-y-auto">
+            @for (priv of getPrivilegesByFeature(); track priv) {
+            <div class="flex items-center px-3 py-2 rounded-md border border-border/50 bg-background transition-all duration-200 hover:border-primary/30 hover:bg-primary/0.02 hover:-translate-y-[1px]">
+              <mat-checkbox [checked]="isPrivilegeSelected(priv)" (change)="onPrivilegeChange(priv, $event.checked)"
+                color="primary">
+                {{ priv }}
+              </mat-checkbox>
+            </div>
+            }
+            @if (getPrivilegesByFeature().length === 0) {
+            <div class="col-span-full flex flex-col items-center justify-center gap-2 p-8 text-center text-muted-foreground text-sm">
+              <mat-icon class="text-[28px] h-7 w-7 text-muted-foreground/60">info</mat-icon>
+              <span>No privileges configurable under this feature</span>
+            </div>
+            }
+          </div>
+        </div>
+        } @else if (!dataLoaded()) {
+        <div class="col-span-full flex flex-col items-center justify-center gap-2 p-8 text-center text-muted-foreground text-sm">
+          <span class="w-6 h-6 border-2 border-border border-t-primary rounded-full animate-spin"></span>
+          <span>Fetching privileges metadata...</span>
+        </div>
+        }
+      </div>
+
+      <div footer class="flex items-center justify-between w-full">
+        <ui-button variant="outline" type="button" (click)="closeModal()" [disabled]="isSubmitting()">Cancel</ui-button>
+        <ui-button type="submit" [disabled]="roleForm.invalid || privilegeCount() === 0 || isSubmitting()">
+          @if (isSubmitting()) {
+          Saving...
+          } @else {
+          {{ isEditMode() ? 'Save Changes' : 'Create Role' }}
+          }
+        </ui-button>
+      </div>
+    </ui-modal>
+  </form>
+
+  <!-- Advanced Filter Drawer -->
+  <ui-drawer [isOpen]="isFilterDrawerOpen()" title="Filter Roles" size="sm" (onClose)="isFilterDrawerOpen.set(false)">
+    <div class="flex flex-col gap-4 p-0">
+      <div class="flex flex-col gap-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Account Status</mat-label>
+          <mat-select [ngModel]="filterStatus()" (ngModelChange)="filterStatus.set($event)">
+            <mat-option value="">All Statuses</mat-option>
+            <mat-option value="Active">Active</mat-option>
+            <mat-option value="Inactive">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Date Filters -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1 w-full">
+            <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">From Date</span>
+            <input type="date" class="w-full h-10 px-3 border border-border rounded-md bg-transparent text-sm focus:outline-none focus:ring-1 focus:ring-primary" [ngModel]="filterStartDate()"
+              (ngModelChange)="filterStartDate.set($event)">
+          </div>
+
+          <div class="flex flex-col gap-1 w-full">
+            <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">To Date</span>
+            <input type="date" class="w-full h-10 px-3 border border-border rounded-md bg-transparent text-sm focus:outline-none focus:ring-1 focus:ring-primary" [ngModel]="filterEndDate()"
+              (ngModelChange)="filterEndDate.set($event)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div footer class="flex items-center justify-between w-full">
+      <ui-button variant="outline" (click)="resetFilters()">Clear All</ui-button>
+      <ui-button (click)="applyFilters()">Apply Filters</ui-button>
+    </div>
+  </ui-drawer>
+</div>

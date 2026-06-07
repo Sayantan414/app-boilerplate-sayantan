@@ -1,0 +1,95 @@
+[
+    {
+      "reason": "ALREADY ACCEPTED, DEMAND REPEATED"
+    },
+    {
+      "reason": "ALREADY GRANTED , DEMAND REPEATED"
+    },
+    {
+      "reason": "BLOCK GRANTED BUT DENIED ."
+    },
+    {
+      "reason": "BLOCK GRANTED BUT WRONGLY ENTERED"
+    },
+    {
+      "reason": "BLOCK GRANTED TO OTHER ADJACENT SECTION"
+    },
+    {
+      "reason": "BLOCK GRANTED TO OTHER DEPTT IN SAME TIME"
+    },
+    {
+      "reason": "BLOCK LATE DEMANDED"
+    },
+    {
+      "reason": "BLOCK MAY BE PLANNED IN SHADOW."
+    },
+    {
+      "reason": "BLOCK NOT DEMANDED"
+    },
+    {
+      "reason": "BLOCK NOT DEMANDED IN CORRIDOR HOURS"
+    },
+    {
+      "reason": "BUNCHING OF TRAINS"
+    },
+    {
+      "reason": "CONGESTION OF STATION DUE TO IN /OUT EMPTY/LOAD"
+    },
+    {
+      "reason": "CORRIDOR NOT AVAILABLE FOR BOTH UP/DN DIRECTION"
+    },
+    {
+      "reason": "DEMANDED DURATION IS MORE THAN PLANNED DURATION"
+    },
+    {
+      "reason": "DENIED BY HIGHER AUTHORITY"
+    },
+    {
+      "reason": "DUE TO M/E/PASS TRAIN LATE RUNNING"
+    },
+    {
+      "reason": "DUE TO TOD/DIVERTED TRAINS"
+    },
+    {
+      "reason": "JOINT NOTE NOT READY"
+    },
+    {
+      "reason": "LESS DURATION GRANTED DUE TO IN FACE OF RAJDHANI EXP"
+    },
+    {
+      "reason": "Line was occupied by stable load"
+    },
+    {
+      "reason": "MACHINE IS NOT IN PROPER WORKING CONDITION"
+    },
+    {
+      "reason": "MAY BE GRANTED IN NIGHT ."
+    },
+    {
+      "reason": "NOT DEMANDED IN CORRIDOR TIME"
+    },
+    {
+      "reason": "Reason not mentioned by Station Master."
+    },
+    {
+      "reason": "SHORTAGE OF MAN POWER"
+    },
+    {
+      "reason": "SUPPLY OF GOODS TRAINS"
+    },
+    {
+      "reason": "TOWER WAGON HAS NOT MOVED FROM DEPO"
+    },
+    {
+      "reason": "TOWER WAGON LATE MOVED FROM DEPO"
+    },
+    {
+      "reason": "TRAIN WAS STABLE AT REQUIRED LINE"
+    },
+    {
+      "reason": "excess caution"
+    },
+    {
+      "reason": "weekly train"
+    }
+  ]

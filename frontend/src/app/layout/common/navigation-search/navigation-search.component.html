@@ -1,0 +1,72 @@
+<div class="relative w-full" #containerRef>
+  <div [class]="getInputWrapperClasses()">
+    <svg class="mr-2 flex-shrink-0 transition-colors duration-200" 
+         [class.text-primary]="isFocused()" 
+         [class.text-muted-foreground]="!isFocused()" 
+         xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+    
+    <input 
+      #inputRef
+      type="text" 
+      placeholder="Search pages... (Ctrl + K)" 
+      [value]="query()"
+      (input)="onInputChange($event)"
+      (focus)="isFocused.set(true)"
+      (keydown)="onKeyDown($event)"
+      class="bg-transparent border-none outline-none text-foreground text-[0.8125rem] w-full h-full p-0 placeholder:text-muted-foreground/70"
+    >
+    
+    @if (query()) {
+      <button class="inline-flex items-center justify-center bg-transparent border-none text-muted-foreground cursor-pointer p-1 rounded-full transition-all duration-200 flex-shrink-0 hover:bg-muted-foreground/15 hover:text-foreground" (click)="clearSearch($event)" type="button" aria-label="Clear search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/>
+        </svg>
+      </button>
+    }
+  </div>
+
+  <!-- Dropdown Results Palette -->
+  @if (isOpen()) {
+    <div class="absolute top-[calc(100%+8px)] left-0 right-0 bg-card border border-border rounded-lg shadow-xl z-[200] animate-modalSlideUp overflow-hidden flex flex-col">
+      <div class="max-h-[380px] overflow-y-auto flex flex-col w-full scrollbar-thin">
+        @if (filteredNodes().length === 0) {
+          <div class="flex flex-col items-center justify-center p-8 text-muted-foreground gap-2 text-center">
+            <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
+            <span class="text-[0.8125rem]">No pages found matching "{{ query() }}"</span>
+          </div>
+        } @else {
+          <div class="p-2">
+            @for (category of groupedNodes(); track category.name) {
+              <div class="mb-2 last:mb-0">
+                <div class="text-[0.6875rem] font-bold text-muted-foreground uppercase tracking-wider px-2 py-1">{{ category.name }}</div>
+                <div class="flex flex-col gap-0.5">
+                  @for (node of category.items; track node.url) {
+                    <div 
+                      class="flex items-center gap-2 px-3 py-2 rounded-md text-foreground cursor-pointer transition-all duration-200 hover:bg-accent hover:text-accent-foreground" 
+                      [class.bg-accent]="isActive(node)"
+                      [class.text-accent-foreground]="isActive(node)"
+                      [class.translate-x-1]="isActive(node)"
+                      (click)="selectNode(node)"
+                      (mouseenter)="onMouseEnter(node)"
+                    >
+                      <span class="flex items-center justify-center transition-colors duration-200"
+                            [class.text-accent-foreground]="isActive(node)"
+                            [class.text-muted-foreground]="!isActive(node)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                      </span>
+                      <span class="text-[0.8125rem] font-semibold">{{ node.title }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

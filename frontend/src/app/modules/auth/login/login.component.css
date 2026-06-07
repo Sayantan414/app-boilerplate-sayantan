@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --brand-primary: #0ea5e9;
+}
+
+@keyframes kenBurns {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.05) translate(-1%, 1%); }
+  100% { transform: scale(1.1) translate(1%, -1%); }
+}
+
+.animate-kenBurns {
+  animation: kenBurns 25s ease-in-out infinite alternate;
+}
+
+/* Material form field adjustments */
+::ng-deep .custom-field .mat-mdc-form-field-infix {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  min-height: 52px !important;
+}
+
+::ng-deep .custom-field .mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease;
+}
+
+/* Clean border styling */
+::ng-deep .custom-field .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .custom-field .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+::ng-deep .custom-field .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #e2e8f0 !important;
+  border-width: 1.5px !important;
+  transition: border-color 0.3s ease;
+}
+
+/* Hover state for borders */
+::ng-deep .custom-field:hover .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .custom-field:hover .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+::ng-deep .custom-field:hover .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: #cbd5e1 !important;
+}
+
+/* Focus state with brand color and subtle glow */
+::ng-deep .custom-field .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
+::ng-deep .custom-field .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
+::ng-deep .custom-field .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--brand-primary) !important;
+  border-width: 2px !important;
+}
+
+::ng-deep .custom-field.mat-focused .mat-mdc-text-field-wrapper {
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1) !important;
+}
+
+::ng-deep .custom-field .mat-mdc-input-element {
+  color: #0f172a !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+
+::ng-deep .custom-field input:-webkit-autofill,
+::ng-deep .custom-field input:-webkit-autofill:hover, 
+::ng-deep .custom-field input:-webkit-autofill:focus, 
+::ng-deep .custom-field input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #0f172a !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+::ng-deep .custom-field .mat-mdc-form-field-icon-prefix {
+  color: #94a3b8 !important;
+  margin-right: 8px !important;
+}
+::ng-deep .custom-field.mat-focused .mat-mdc-form-field-icon-prefix {
+  color: var(--brand-primary) !important;
+}
+
+::ng-deep .custom-field .mat-mdc-form-field-icon-suffix {
+  color: #94a3b8 !important;
+}
+
+::ng-deep .custom-field .mat-mdc-form-field-subscript-wrapper {
+  margin-bottom: 0;
+}

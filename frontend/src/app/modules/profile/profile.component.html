@@ -1,0 +1,191 @@
+<div class="flex flex-col gap-8 max-w-[1200px] mx-auto p-1">
+  <div class="flex flex-col gap-1">
+    <h1 class="text-[1.75rem] font-bold text-foreground tracking-tight">Profile Settings</h1>
+    <p class="text-muted-foreground text-sm">Manage your personal information, profile photo, and password security.</p>
+  </div>
+
+  <div class="grid grid-cols-[320px_1fr] gap-8 items-start max-[960px]:grid-cols-1">
+    <!-- Left Column: Avatar & Meta Card -->
+    <div class="bg-card border border-border rounded-lg p-8 flex flex-col items-center gap-6 shadow-sm">
+      <div class="flex flex-col items-center gap-4 w-full">
+        <div class="group relative w-[140px] h-[140px] rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground cursor-pointer overflow-hidden flex items-center justify-center border-4 border-background shadow-md transition-all hover:scale-[1.02] hover:shadow-lg" (click)="fileInput.click()" title="Click to upload a new profile picture">
+          <ng-container *ngIf="currentUser()?.profilePic; else showInitials">
+            <img [src]="currentUser()?.profilePic" alt="Avatar Preview" class="w-full h-full object-cover">
+          </ng-container>
+          <ng-template #showInitials>
+            <div class="text-[2.75rem] font-bold tracking-wider">{{ initials() }}</div>
+          </ng-template>
+          <div class="absolute inset-0 bg-black/60 opacity-0 text-white flex flex-col items-center justify-center gap-1 text-xs font-semibold transition-opacity duration-250 backdrop-blur-[2px] group-hover:opacity-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" x2="12" y1="3" y2="15" />
+            </svg>
+            <span>Upload</span>
+          </div>
+        </div>
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" class="hidden">
+
+        <div class="text-center">
+          <p class="text-[0.725rem] text-muted-foreground my-[2px]">Allowed formats: JPG, PNG, GIF</p>
+          <p class="text-[0.725rem] text-muted-foreground my-[2px]">Max size: 2MB</p>
+        </div>
+      </div>
+
+      <div class="text-center flex flex-col items-center gap-1 border-b border-border pb-6 w-full">
+        <h2 class="text-xl font-bold text-foreground">{{ fullName() }}</h2>
+        <span class="text-xs font-bold uppercase tracking-wider bg-primary/15 text-primary px-4 py-1 rounded-full">{{ currentUser()?.role || 'User' }}</span>
+        <div class="flex items-center gap-1 text-[0.8125rem] text-muted-foreground">
+          <span class="w-2 h-2 rounded-full bg-muted-foreground/50" [class.!bg-green-500]="currentUser()?.status === 'Active'" [class.shadow-[0_0_8px_rgba(34,197,94,0.4)]]="currentUser()?.status === 'Active'"></span>
+          <span>{{ currentUser()?.status }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Forms Panel -->
+    <div class="bg-card border border-border rounded-lg shadow-sm flex flex-col overflow-hidden">
+      <div class="flex border-b border-border bg-background/30 px-4">
+        <button class="h-12 px-6 text-sm font-semibold text-muted-foreground flex items-center gap-2 border-b-2 border-transparent transition-all hover:text-foreground" [class.!text-primary] [class.!border-primary]="activeTab() === 'details'" (click)="activeTab.set('details')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Personal Details
+        </button>
+        <button class="h-12 px-6 text-sm font-semibold text-muted-foreground flex items-center gap-2 border-b-2 border-transparent transition-all hover:text-foreground" [class.!text-primary] [class.!border-primary]="activeTab() === 'security'" (click)="activeTab.set('security')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          Security
+        </button>
+      </div>
+
+      <div class="p-8">
+        <!-- Details Tab -->
+        <div *ngIf="activeTab() === 'details'" class="flex flex-col gap-6">
+          <form [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()">
+            <div class="grid grid-cols-2 gap-6 max-[640px]:grid-cols-1">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" formControlName="firstname" class="form-input" placeholder="First Name">
+                <span class="text-xs text-destructive mt-[2px]"
+                  *ngIf="profileForm.get('firstname')?.touched && profileForm.get('firstname')?.invalid">
+                  First Name is required.
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" formControlName="lastname" class="form-input" placeholder="Last Name">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Mobile Number</label>
+                <input type="text" formControlName="mobile" class="form-input" placeholder="Mobile Number">
+                <span class="text-xs text-destructive mt-[2px]"
+                  *ngIf="profileForm.get('mobile')?.touched && profileForm.get('mobile')?.invalid">
+                  Mobile Number is required.
+                </span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" formControlName="email" class="form-input" placeholder="Email Address">
+                <span class="text-xs text-destructive mt-[2px]"
+                  *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid">
+                  Please enter a valid email.
+                </span>
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <!-- Security Tab -->
+        <div *ngIf="activeTab() === 'security'" class="flex flex-col gap-6">
+          <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+            <div class="flex flex-col gap-6 max-w-[480px]">
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <div class="relative flex items-center w-full">
+                  <input [type]="showPassword() ? 'text' : 'password'" formControlName="password" class="form-input pr-9 w-full"
+                    placeholder="New Password">
+                  <button type="button" class="absolute right-3 bg-transparent border-none cursor-pointer text-muted-foreground flex items-center justify-center p-1 z-10 hover:text-foreground" (click)="showPassword.set(!showPassword())">
+                    <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path
+                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                      </path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+                <ng-container
+                  *ngIf="passwordForm.get('password')?.invalid && (passwordForm.get('password')?.dirty || passwordForm.get('password')?.touched)">
+                  <span class="text-xs text-destructive mt-[2px]" *ngIf="passwordForm.get('password')?.errors?.['required']">
+                    Password is required.
+                  </span>
+                  <span class="text-xs text-destructive mt-[2px]" *ngIf="passwordForm.get('password')?.errors?.['minlength']">
+                    Password must be at least 6 characters.
+                  </span>
+                </ng-container>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <div class="relative flex items-center w-full">
+                  <input [type]="showConfirmPassword() ? 'text' : 'password'" formControlName="confirmPassword"
+                    class="form-input pr-9 w-full" placeholder="Confirm Password">
+                  <button type="button" class="absolute right-3 bg-transparent border-none cursor-pointer text-muted-foreground flex items-center justify-center p-1 z-10 hover:text-foreground"
+                    (click)="showConfirmPassword.set(!showConfirmPassword())">
+                    <svg *ngIf="!showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg *ngIf="showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path
+                        d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                      </path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+                <ng-container
+                  *ngIf="passwordForm.get('confirmPassword')?.touched || passwordForm.get('confirmPassword')?.dirty">
+                  <span class="text-xs text-destructive mt-[2px]" *ngIf="passwordForm.get('confirmPassword')?.errors?.['required']">
+                    Please confirm your password.
+                  </span>
+                  <span class="text-xs text-destructive mt-[2px]"
+                    *ngIf="passwordForm.errors?.['passwordMismatch'] && !passwordForm.get('confirmPassword')?.errors?.['required']">
+                    Passwords do not match.
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="flex justify-end mt-8 border-t border-border pt-6">
+              <ui-button type="submit" [disabled]="passwordForm.invalid || isSubmitting()">
+                Change Password
+              </ui-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

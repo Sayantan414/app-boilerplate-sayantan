@@ -1,0 +1,24 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+*.class
+*.py[cod]
+*.jar
+target/
+TEST*.xml
+*.app
+*.exe
+*.war
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+# Environment variables - NEVER commit this
+.env
+.env.*

@@ -1,0 +1,19 @@
+.active {
+  background-color: hsl(var(--primary) / 0.1) !important;
+  color: hsl(var(--primary)) !important;
+}
+
+:host-context(.sidebar-collapsed) .label,
+:host-context(.sidebar-collapsed) .arrow {
+  display: none;
+}
+
+:host-context(.sidebar-collapsed) .nav-link,
+:host-context(.sidebar-collapsed) .collapsable-trigger {
+  justify-content: center !important;
+  padding: 10px !important;
+}
+
+:host-context(.sidebar-collapsed) .sub-menu {
+  display: none !important;
+}

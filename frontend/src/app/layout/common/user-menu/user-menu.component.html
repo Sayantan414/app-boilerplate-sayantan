@@ -1,0 +1,64 @@
+<div class="relative inline-block">
+  <!-- User Menu Trigger -->
+  <div class="flex items-center gap-2 px-3 py-1.5 rounded-md cursor-pointer select-none transition-colors duration-200 hover:bg-accent" 
+       [class.bg-accent]="dropdownOpen()" 
+       (click)="toggleDropdown($event)" 
+       title="User Menu">
+    <div class="hidden sm:flex flex-col items-end">
+      <span class="text-sm font-semibold text-foreground whitespace-nowrap">{{ fullName() }}</span>
+      <span class="text-[11px] text-muted-foreground">{{ role() }}</span>
+    </div>
+    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-bold text-sm border-2 border-background shadow-sm overflow-hidden">
+      <ng-container *ngIf="profilePic(); else showInitials">
+        <img [src]="profilePic()" alt="Avatar" class="w-full h-full object-cover">
+      </ng-container>
+      <ng-template #showInitials>
+        {{ initials() }}
+      </ng-template>
+    </div>
+    
+    <!-- Small Dropdown Chevron Icon -->
+    <svg class="text-muted-foreground transition-transform duration-200" 
+         [class.rotate-180]="dropdownOpen()" 
+         xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </div>
+
+  <!-- Premium Glassmorphic Dropdown Menu -->
+  @if (dropdownOpen()) {
+    <div class="absolute top-[calc(100%+4px)] right-0 w-60 bg-card/95 backdrop-blur-md border border-border rounded-lg shadow-xl p-1 z-[100] flex flex-col origin-top-right animate-modalSlideUp">
+      <!-- User Details Summary -->
+      <div class="flex items-center gap-3 p-3">
+        <div class="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-semibold text-base overflow-hidden">
+          <ng-container *ngIf="profilePic(); else dropdownShowInitials">
+            <img [src]="profilePic()" alt="Avatar" class="w-full h-full object-cover">
+          </ng-container>
+          <ng-template #dropdownShowInitials>
+            {{ initials() }}
+          </ng-template>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="text-[0.9375rem] font-bold text-foreground whitespace-nowrap overflow-hidden text-ellipsis">{{ fullName() }}</span>
+          <span class="text-[11px] font-bold text-primary uppercase tracking-wider">{{ role() }}</span>
+          <span class="text-[11px] text-muted-foreground">&#64;{{ username() }}</span>
+        </div>
+      </div>
+
+      <div class="h-[1px] bg-border my-1"></div>
+
+      <!-- Actions -->
+      <button class="flex items-center gap-3 w-full px-3 py-2 text-sm font-semibold text-foreground rounded-md transition-colors duration-200 cursor-pointer text-left hover:bg-accent hover:text-accent-foreground" (click)="goToProfile()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>My Profile</span>
+      </button>
+
+      <div class="h-[1px] bg-border my-1"></div>
+
+      <button class="flex items-center gap-3 w-full px-3 py-2 text-sm font-semibold rounded-md transition-colors duration-200 cursor-pointer text-left text-destructive hover:bg-destructive/10 hover:text-destructive" (click)="onLogout()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        <span>Sign Out</span>
+      </button>
+    </div>
+  }
+</div>

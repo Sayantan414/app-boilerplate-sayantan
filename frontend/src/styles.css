@@ -1,0 +1,1274 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import './styles/variables.css';
+@import "@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Form Styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.form-label::after {
+  content: "*";
+  color: hsl(var(--destructive));
+}
+
+.form-input {
+  height: 42px;
+  padding: 0 1rem;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--input-border));
+  border-radius: var(--radius-md);
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  width: 100%;
+  transition: all var(--transition-base);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+  background-color: hsl(var(--card));
+}
+
+.form-input:hover:not(:focus) {
+  border-color: hsl(var(--muted-foreground) / 0.5);
+}
+
+.form-input::placeholder,
+.mat-mdc-input-element::placeholder {
+  color: hsl(var(--muted-foreground) / 0.85) !important;
+}
+
+textarea.form-input {
+  height: auto;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  resize: vertical;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: var(--radius-full, 9999px);
+  transition: background 0.3s ease;
+}
+
+/* Auto-hide scrollbar thumb: only visible when actively scrolling */
+.is-scrolling::-webkit-scrollbar-thumb {
+  background: hsl(var(--border) / 0.85);
+}
+
+.is-scrolling::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Material Design Overrides - Robust Dark Mode Support */
+:root {
+  --mdc-outlined-text-field-outline-color: hsl(var(--input-border));
+  --mdc-outlined-text-field-focus-outline-color: hsl(var(--primary));
+  --mdc-outlined-text-field-label-text-color: hsl(var(--muted-foreground));
+  --mdc-outlined-text-field-focus-label-text-color: hsl(var(--primary));
+  --mdc-outlined-text-field-input-text-color: hsl(var(--foreground));
+  --mdc-outlined-text-field-hover-outline-color: hsla(var(--foreground), 0.3);
+
+  /* Select specific */
+  --mat-select-panel-background-color: hsl(var(--card));
+  --mat-select-trigger-text-color: hsl(var(--foreground));
+  --mat-select-arrow-color: hsl(var(--muted-foreground));
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Make Material Form Fields Compact, Smooth and Curved */
+.mat-mdc-text-field-wrapper {
+  height: 42px !important;
+  background-color: hsl(var(--card)) !important;
+  transition: all var(--transition-base) !important;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.mat-mdc-form-field-flex {
+  height: 42px !important;
+  align-items: center !important;
+}
+
+.mat-mdc-form-field-infix {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Beautiful Curvy Corners matching var(--radius-md) */
+.mdc-notched-outline__leading {
+  border-top-left-radius: var(--radius-md) !important;
+  border-bottom-left-radius: var(--radius-md) !important;
+  border-right: none !important;
+}
+
+.mdc-notched-outline__trailing {
+  border-top-right-radius: var(--radius-md) !important;
+  border-bottom-right-radius: var(--radius-md) !important;
+  border-left: none !important;
+}
+
+/* Soft, visible border outlines for light and dark modes */
+.mdc-notched-outline__leading,
+.mdc-notched-outline__notch,
+.mdc-notched-outline__trailing {
+  border-color: hsl(var(--input-border)) !important;
+  border-width: 1px !important;
+  transition: border-color var(--transition-base) !important;
+}
+
+/* Hover state styling */
+.mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.mat-mdc-form-field:hover .mdc-notched-outline__notch,
+.mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+  border-color: hsl(var(--muted-foreground) / 0.8) !important;
+}
+
+/* Focused state styling - Sophisticated, Clean, Muted Grey/Silver Focus */
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: hsl(var(--primary)) !important;
+  border-width: 1px !important;
+}
+
+/* Fix Label alignment for compact state */
+.mat-mdc-form-field .mdc-floating-label {
+  color: hsl(var(--muted-foreground) / 0.95) !important;
+  top: 20px !important;
+  font-size: 0.875rem !important;
+}
+
+.mat-mdc-form-field.mat-form-field-should-float .mdc-floating-label {
+  transform: translateY(-29px) scale(0.75) !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Placeholder color to match nav search */
+.mat-mdc-form-field input::placeholder {
+  color: hsl(var(--muted-foreground) / 0.7) !important;
+}
+
+/* Adjust standard mat-icon prefix / suffix alignment */
+.mat-mdc-form-field [matPrefix],
+.mat-mdc-form-field [matIconPrefix] {
+  margin-right: 8px !important;
+  color: hsla(var(--foreground), 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.mat-mdc-form-field [matSuffix],
+.mat-mdc-form-field [matIconSuffix] {
+  margin-left: 8px !important;
+  color: hsla(var(--foreground), 0.4) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Fix Input Text visibility */
+.mat-mdc-input-element {
+  color: hsl(var(--foreground)) !important;
+  font-size: 0.875rem !important;
+}
+
+/* Dropdown Menu styling */
+.mat-mdc-select-panel,
+.mat-mdc-autocomplete-panel {
+  background-color: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.mat-mdc-option {
+  color: hsl(var(--foreground)) !important;
+}
+
+.mat-mdc-option:hover:not(.mdc-list-item--disabled),
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+  background-color: hsl(var(--accent)) !important;
+}
+
+.mat-mdc-select-value {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Global Flexible Form Grid Layout System */
+.form-grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+@media (max-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Global Filter Drawer Design System */
+.filter-drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xs) 0;
+}
+
+.filter-section-title {
+  font-size: 0.725rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(var(--muted-foreground));
+  margin-bottom: var(--spacing-xs);
+  border-bottom: 1px solid hsl(var(--border));
+  padding-bottom: var(--spacing-xs);
+}
+
+.filter-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.drawer-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Premium Error/Invalid state styling - Elegant Soft Red/Crimson Border & Label */
+.mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__trailing {
+  border-color: hsl(var(--destructive)) !important;
+  border-width: 1px !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid:hover .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-form-field-invalid:hover .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-form-field-invalid:hover .mdc-notched-outline__trailing {
+  border-color: hsl(var(--destructive) / 0.8) !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-form-field-invalid.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-form-field.mat-form-field-invalid.mat-focused .mdc-notched-outline__trailing {
+  border-color: hsl(var(--destructive)) !important;
+  border-width: 1px !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid .mdc-floating-label {
+  color: hsl(var(--destructive)) !important;
+}
+
+/* Bulletproof removal of inside vertical borders of notched outline in all states */
+.mdc-notched-outline__leading {
+  border-right: none !important;
+}
+
+.mdc-notched-outline__notch {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.mdc-notched-outline__trailing {
+  border-left: none !important;
+}
+
+/* Global Angular Material checkbox and select overrides for Dark Mode */
+.mat-mdc-checkbox .mdc-label,
+.mat-mdc-checkbox label,
+.mat-checkbox-layout .mat-checkbox-label {
+  color: hsl(var(--foreground)) !important;
+}
+
+.mat-mdc-checkbox .mdc-checkbox__background {
+  border-color: hsl(var(--border)) !important;
+}
+
+.mat-mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background {
+  background-color: hsl(var(--primary)) !important;
+  border-color: hsl(var(--primary)) !important;
+}
+
+.mat-mdc-checkbox .mdc-checkbox__checkmark-path {
+  stroke: hsl(var(--primary-foreground)) !important;
+}
+
+.mat-mdc-select-arrow,
+.mat-mdc-select-arrow svg,
+.mat-select-arrow {
+  color: hsl(var(--foreground)) !important;
+}
+
+.mat-mdc-select-value {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Global Page Layouts */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+}
+
+.search-input {
+  height: 40px;
+  width: 240px;
+  padding: 0 12px 0 38px;
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md);
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  transition: all var(--transition-base);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+  width: 280px;
+}
+
+@media (max-width: 1024px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .search-wrapper {
+    flex: 1;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-input:focus {
+    width: 100%;
+  }
+}
+
+.page-title {
+  font-size: 1.5rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 0;
+  letter-spacing: -0.025em;
+}
+
+.page-subtitle {
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8125rem;
+}
+
+/* Common utility classes used in pages */
+.w-full {
+  width: 100%;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-3 {
+  gap: var(--spacing-md);
+}
+
+.modal-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Filter button and badge */
+.filter-btn-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  position: relative;
+}
+
+.filter-badge {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-radius: var(--radius-full);
+  font-size: 0.725rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--spacing-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Global Date Picker & Range Fields */
+.date-range-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xs);
+}
+
+.date-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.date-field-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+}
+
+.date-picker-input {
+  height: 48px;
+  padding: 0 var(--spacing-md);
+  background-color: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-md);
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+  font-family: inherit;
+  transition: all var(--transition-base);
+}
+
+.date-picker-input:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 4px hsl(var(--primary) / 0.1);
+}
+
+/* ==========================================================================
+   Global Screen-wise Full-Height Table Layout System
+   Stretches table card down to fill all remaining viewport screen space
+   ========================================================================== */
+
+/* Target all custom component host wrappers globally to stretch vertically */
+app-users,
+app-user-log,
+app-roles,
+app-section-master,
+app-line-master,
+app-Line-Master,
+app-designation-master,
+app-staff-hierarchy-master,
+app-Staff-Hierarchy-Master,
+app-app-dashboard {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+/* Target all main page wrapper flex containers */
+.users-page,
+.userlog-page,
+.roles-page,
+.staff-hierarchy-page,
+.section-master-page,
+.line-master-page,
+.designation-master-page,
+.station-master-page,
+.app-dashboard-page {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  padding-bottom: var(--spacing-md) !important;
+  /* Beautifully balanced consistent bottom spacing */
+}
+
+/* Table section within the pages expands to take up remaining height */
+.table-section {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  margin-bottom: 0 !important;
+  /* Flush margin relative to wrapper container */
+}
+
+/* Base custom table component elements */
+ui-table {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+}
+
+.table-container {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  background-color: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--foreground) / 0.15) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  overflow: auto !important;
+}
+
+[data-theme='light'] .table-container {
+  background-color: #ffffff !important;
+}
+
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  display: table !important;
+}
+
+thead {
+  display: table-header-group !important;
+  width: 100% !important;
+}
+
+thead th {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background: linear-gradient(hsl(var(--accent) / 0.1), hsl(var(--accent) / 0.1)) hsl(var(--card)) !important;
+  border-bottom: 1px solid hsl(var(--foreground) / 0.15) !important;
+}
+
+[data-theme='light'] thead th {
+  background: #f1f5f9 !important;
+}
+
+tbody {
+  display: table-row-group !important;
+  width: 100% !important;
+}
+
+[data-theme='light'] tbody {
+  background-color: #ffffff !important;
+}
+
+/* Custom scrollbars inside the table container */
+.table-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.table-container::-webkit-scrollbar-track:vertical {
+  background: transparent;
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.table-container::-webkit-scrollbar-track:horizontal {
+  background: transparent;
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: var(--radius-full);
+  transition: background 0.2s ease !important;
+}
+
+.table-container::-webkit-scrollbar-thumb:horizontal {
+  background: hsl(var(--border) / 0.8) !important;
+}
+
+.table-container::-webkit-scrollbar-thumb:horizontal:hover {
+  background: hsl(var(--muted-foreground) / 0.8) !important;
+}
+
+.table-container.is-scrolling::-webkit-scrollbar-thumb {
+  background: hsl(var(--border) / 0.8) !important;
+}
+
+.table-container.is-scrolling::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.8) !important;
+}
+
+/* Custom overlay scrollbars for page-level containers */
+.custom-scrollbar {
+  overflow-y: auto !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent !important;
+  border-radius: var(--radius-full) !important;
+  transition: background 0.2s ease !important;
+}
+
+.custom-scrollbar.is-scrolling::-webkit-scrollbar-thumb {
+  background: hsl(var(--border) / 0.8) !important;
+}
+
+.custom-scrollbar.is-scrolling::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.8) !important;
+}
+
+/* ==========================================================================
+   Global Pagination Styling (Premium Material Theme Integrated)
+   ========================================================================== */
+
+/* Flat bottom corners for tables with pagination to merge seamlessly */
+ui-table:has(+ .paginator-container) .table-container {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom: none !important;
+}
+
+.paginator-container {
+  display: flex !important;
+  justify-content: center !important;
+  background-color: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--foreground) / 0.15) !important;
+  border-bottom-left-radius: var(--radius-lg) !important;
+  border-bottom-right-radius: var(--radius-lg) !important;
+  padding: var(--spacing-sm) var(--spacing-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  flex-shrink: 0 !important;
+  margin-top: -1px !important;
+  /* Pull up to merge perfectly with table container border */
+  z-index: 10 !important;
+
+  /* MDC CSS variables to override Material default background colors */
+  --mdc-paginator-container-background-color: hsl(var(--card)) !important;
+  --mdc-paginator-container-text-color: hsl(var(--foreground)) !important;
+}
+
+.paginator-container mat-paginator,
+.paginator-container .mat-mdc-paginator,
+.paginator-container .mat-mdc-paginator-outer-container,
+.paginator-container .mat-mdc-paginator-container {
+  background-color: hsl(var(--card)) !important;
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  width: 100% !important;
+}
+
+.paginator-container .mat-mdc-paginator-container {
+  justify-content: center !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  gap: var(--spacing-md) !important;
+}
+
+/* Items per page label */
+.paginator-container .mat-mdc-paginator-page-size-label {
+  color: hsl(var(--muted-foreground)) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+/* Page size select box styling */
+.paginator-container .mat-mdc-paginator-page-size {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.paginator-container .mat-mdc-text-field-wrapper {
+  background-color: hsl(var(--muted) / 0.3) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 0 10px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.paginator-container .mat-mdc-text-field-wrapper:hover {
+  border-color: hsl(var(--primary) / 0.5) !important;
+}
+
+.paginator-container .mat-mdc-form-field-flex {
+  height: 100% !important;
+  align-items: center !important;
+}
+
+.paginator-container .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  min-height: unset !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.paginator-container .mat-mdc-select-value-text {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+}
+
+.paginator-container .mat-mdc-select-arrow {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+/* Current range label "1-10 of 14" */
+.paginator-container .mat-mdc-paginator-range-label {
+  color: hsl(var(--foreground)) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  margin: 0 8px !important;
+}
+
+/* Pagination navigation buttons styling */
+.paginator-container .mat-mdc-icon-button {
+  background-color: hsl(var(--muted)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius-md) !important;
+  margin: 0 4px !important;
+  width: 38px !important;
+  height: 38px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all var(--transition-base) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.paginator-container .mat-mdc-icon-button svg {
+  transform: scale(1.3) !important;
+  /* Scale icons up by 30% for high legibility */
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  /* Ensure high-contrast colors apply to all vector types */
+}
+
+.paginator-container .mat-mdc-icon-button .mat-mdc-button-touch-target {
+  display: none !important;
+}
+
+.paginator-container .mat-mdc-icon-button:hover:not(:disabled) {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.paginator-container .mat-mdc-icon-button:disabled {
+  background-color: hsl(var(--muted) / 0.3) !important;
+  color: hsl(var(--muted-foreground) / 0.3) !important;
+  border-color: hsl(var(--border) / 0.5) !important;
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+}
+
+/* Global container styling for routed component host elements */
+.content>*:not(router-outlet),
+main>*:not(router-outlet) {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+router-outlet {
+  display: none !important;
+}
+
+/* Dialog container background matches header */
+.mat-mdc-dialog-container .mdc-dialog__surface,
+.mat-mdc-dialog-surface,
+.mdc-dialog__surface {
+  background-color: hsl(var(--background)) !important;
+}
+
+/* Color required label asterisks (star marks) red globally by default */
+.mat-mdc-form-field-required-marker,
+.mat-form-field-required-marker,
+.required-marker {
+  color: hsl(var(--destructive, 0 84% 60%)) !important;
+}
+
+/* ==========================================================================
+   Global Angular Material Datepicker Styling (Premium Light & Dark Mode)
+   ========================================================================== */
+
+/* Calendar popup container */
+.mat-datepicker-content,
+.mat-datepicker-popup,
+.mat-calendar {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: var(--shadow-lg) !important;
+  font-family: var(--font-family) !important;
+}
+
+/* Header text and arrow icons */
+.mat-calendar-header {
+  color: hsl(var(--foreground)) !important;
+  padding: 8px 8px 0 8px !important;
+}
+
+/* Next / Prev and Selector buttons */
+.mat-calendar-controls,
+.mat-calendar-navigation-button,
+.mat-calendar-next-button,
+.mat-calendar-previous-button,
+.mat-mdc-calendar-controls,
+.mat-mdc-calendar-navigation-button,
+.mat-mdc-calendar-next-button,
+.mat-mdc-calendar-previous-button {
+  color: hsl(var(--foreground)) !important;
+}
+
+.mat-calendar-arrow {
+  fill: hsl(var(--foreground)) !important;
+}
+
+/* Day of week headers (S, M, T, W, etc.) - Single Clean Border & Legible Color */
+.mat-calendar-table-header,
+.mat-mdc-calendar-table-header {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.85 !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+}
+
+/* Completely remove the pseudo-element ::after divider to prevent double border lines */
+.mat-calendar-table-header-divider::after,
+.mat-mdc-calendar-table-header-divider::after,
+.mat-calendar-table-header::after,
+.mat-mdc-calendar-table-header::after {
+  display: none !important;
+  background-color: transparent !important;
+}
+
+/* Month label (e.g. JUN) inside body */
+.mat-calendar-body-label,
+.mat-mdc-calendar-body-label {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.8 !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Day cells - both button wrapper and inner content */
+.mat-calendar-body-cell,
+.mat-mdc-calendar-body-cell,
+.mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-cell-content {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Normal day cell text customization */
+.mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-cell-content {
+  border-radius: var(--radius-full) !important;
+  border-color: transparent !important;
+  transition: all var(--transition-fast) !important;
+  font-weight: 500 !important;
+}
+
+/* Hover state for cells */
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-cell:not(.mat-mdc-calendar-body-disabled):hover .mat-mdc-calendar-body-cell-content {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Today cell styling */
+.mat-calendar-body-today:not(.mat-calendar-body-selected),
+.mat-mdc-calendar-body-today:not(.mat-mdc-calendar-body-selected) {
+  border: 1px solid hsl(var(--primary)) !important;
+  background-color: transparent !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-today:not(.mat-mdc-calendar-body-selected) .mat-mdc-calendar-body-cell-content {
+  color: hsl(var(--primary)) !important;
+  font-weight: 700 !important;
+}
+
+/* Selected cell styling */
+.mat-calendar-body-selected,
+.mat-mdc-calendar-body-selected {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+.mat-calendar-body-selected .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-selected .mat-mdc-calendar-body-cell-content {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  font-weight: 600 !important;
+}
+
+/* Hovering selected cell */
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover .mat-calendar-body-selected,
+.mat-mdc-calendar-body-cell:not(.mat-mdc-calendar-body-disabled):hover .mat-mdc-calendar-body-selected {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Date picker trigger button suffix */
+.mat-datepicker-toggle-active {
+  color: hsl(var(--primary)) !important;
+}
+
+/* Inactive dates in current month view */
+.mat-calendar-body-disabled .mat-calendar-body-cell-content,
+.mat-mdc-calendar-body-disabled .mat-mdc-calendar-body-cell-content {
+  color: hsl(var(--muted-foreground) / 0.35) !important;
+}
+
+/* ==========================================================================
+   Owl DateTime Picker Theme Overrides (Adaptive Light & Dark Mode)
+   ========================================================================== */
+
+/* Main popup modal container */
+.owl-dt-container {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius-lg, 12px) !important;
+  box-shadow: var(--shadow-xl) !important;
+  font-family: var(--font-family) !important;
+}
+
+/* Calendar Month Title ("Jun 2026") */
+.owl-dt-calendar-control {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Arrow controls / navigation button */
+.owl-dt-calendar-control-button {
+  color: hsl(var(--foreground)) !important;
+}
+
+.owl-dt-calendar-control .owl-dt-calendar-control-content {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+}
+
+/* Weekday header row background and text */
+.owl-dt-calendar-table .owl-dt-calendar-header {
+  color: hsl(var(--muted-foreground)) !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+}
+
+.owl-dt-calendar-table .owl-dt-calendar-header th {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.8 !important;
+  font-weight: 600 !important;
+  padding: 8px 0 !important;
+}
+
+/* Date cells default text and backgrounds */
+.owl-dt-calendar-cell-content {
+  color: hsl(var(--foreground)) !important;
+  border-radius: var(--radius-full, 9999px) !important;
+  transition: all var(--transition-fast, 150ms) !important;
+  border-color: transparent !important;
+}
+
+/* Hover date cell state */
+.owl-dt-calendar-cell:not(.owl-dt-calendar-cell-disabled):hover .owl-dt-calendar-cell-content,
+.owl-dt-calendar-cell:not(.owl-dt-calendar-cell-disabled):hover .owl-dt-calendar-cell-content * {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Today cell style */
+.owl-dt-calendar-cell-today .owl-dt-calendar-cell-content {
+  border: 1px solid hsl(var(--primary)) !important;
+  color: hsl(var(--primary)) !important;
+  font-weight: 700 !important;
+}
+
+/* Selected cell style */
+.owl-dt-calendar-cell-selected .owl-dt-calendar-cell-content,
+.owl-dt-calendar-cell-selected .owl-dt-calendar-cell-content * {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  font-weight: 600 !important;
+}
+
+/* Dates outside current month */
+.owl-dt-calendar-cell-out .owl-dt-calendar-cell-content {
+  color: hsl(var(--muted-foreground) / 0.4) !important;
+}
+
+/* Timer section layout & backgrounds */
+.owl-dt-timer {
+  background-color: hsl(var(--background)) !important;
+  border-top: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  padding: 16px 0 !important;
+}
+
+/* Timer boxes (Hours / Minutes input boxes) */
+.owl-dt-timer-box {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Hour and Minute digital text input spinner */
+.owl-dt-timer-input {
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius-md, 6px) !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.owl-dt-timer-input:focus {
+  border-color: hsl(var(--primary)) !important;
+}
+
+/* Colon separator between hours and minutes */
+.owl-dt-timer-divider {
+  color: hsl(var(--foreground) / 0.8) !important;
+  font-weight: 800 !important;
+}
+
+/* Hour/minute spinner arrow button icons */
+.owl-dt-timer-content .owl-dt-timer-btn {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.owl-dt-timer-content .owl-dt-timer-btn:hover {
+  opacity: 1 !important;
+  color: hsl(var(--primary)) !important;
+}
+
+/* Bottom Action Buttons (Cancel / Set) */
+.owl-dt-container-buttons {
+  background-color: hsl(var(--card)) !important;
+  border-top: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+  height: 52px !important;
+}
+
+/* Cancel / Set Button Overrides */
+.owl-dt-container-button {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Hover styles for buttons */
+.owl-dt-container-button:hover {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+/* Specifically style the Action Button Set in Primary styling */
+.owl-dt-container-button:last-child {
+  color: hsl(var(--primary)) !important;
+}
+
+.owl-dt-container-button:last-child:hover {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+}
+
+/* Table Action mat-menu beautiful high contrast overlay styling */
+.mat-mdc-menu-panel.table-actions-menu {
+  background-color: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 4px !important;
+  min-width: 140px !important;
+}
+
+.table-actions-menu .mat-mdc-menu-item {
+  color: hsl(var(--foreground)) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 8px 12px !important;
+  height: auto !important;
+  min-height: unset !important;
+}
+
+.table-actions-menu .mat-mdc-menu-item:hover:not([disabled]) {
+  background-color: hsl(var(--accent)) !important;
+}
+
+.table-actions-menu .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  color: hsl(var(--foreground)) !important;
+  font-weight: 500 !important;
+}
+
+.table-actions-menu .mat-mdc-menu-item span {
+  display: flex !important;
+  align-items: center !important;
+}

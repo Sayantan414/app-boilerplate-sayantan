@@ -1,0 +1,32 @@
+.sidebar {
+  width: 280px;
+  transition: width var(--transition-base);
+
+  /* Overrides for local variables to ensure perfect readability on dark blue background */
+  --foreground: var(--sidebar-foreground);
+  --muted-foreground: var(--sidebar-muted);
+  --border: var(--sidebar-border);
+  --accent: var(--sidebar-accent);
+  --accent-foreground: var(--sidebar-accent-foreground);
+}
+
+.sidebar-collapsed .sidebar {
+  width: 80px;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    height: 100vh;
+    width: 280px !important;
+    transition: left var(--transition-base);
+  }
+
+  .mobile-sidebar-open .sidebar {
+    left: 0;
+  }
+}

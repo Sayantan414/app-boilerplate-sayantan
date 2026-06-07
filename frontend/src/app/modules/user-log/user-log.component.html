@@ -1,0 +1,96 @@
+<div class="flex-1 flex flex-col min-h-0 h-full pb-4">
+  <header class="flex flex-wrap justify-between items-center gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-foreground tracking-tight m-0">User Logs</h1>
+    </div>
+
+    <div class="flex items-center gap-4 flex-wrap max-sm:w-full max-sm:justify-between">
+      <!-- Search Input -->
+      <div class="relative max-sm:flex-1">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" />
+        </svg>
+        <input type="text" class="w-[240px] pl-10 pr-4 py-2 border border-border rounded-md bg-background text-sm focus:outline-none focus:ring-1 focus:ring-primary max-sm:w-full" placeholder="Search logs..." [ngModel]="searchQuery()"
+          (ngModelChange)="onSearchQueryChange($event)">
+      </div>
+
+      <!-- Drawer Trigger button -->
+      <ui-button variant="outline" (click)="openFilterDrawer()" class="max-sm:flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+          </svg>
+          <span>Filters</span>
+          @if (activeFilterCount() > 0) {
+          <span class="bg-primary text-primary-foreground px-2 py-0.5 rounded-full text-xs font-semibold">{{ activeFilterCount() }}</span>
+          }
+        </div>
+      </ui-button>
+    </div>
+  </header>
+
+  <!-- Table Section -->
+  <div class="flex-1 flex flex-col min-h-0 mb-0">
+    @if (isLoading()) {
+    <ui-table-skeleton [columns]="5" [rows]="8" class="w-full"></ui-table-skeleton>
+    } @else {
+    <ui-table [columns]="columns" [data]="filteredLogs()"
+      emptyMessage="No audit logs found matching criteria. Adjust filters or search terms.">
+    </ui-table>
+    }
+  </div>
+
+  <!-- Advanced Filter Drawer -->
+  <ui-drawer [isOpen]="isFilterDrawerOpen()" title="Filter Logs" size="sm" (onClose)="isFilterDrawerOpen.set(false)">
+    <div class="flex flex-col gap-4 p-0">
+      <div class="flex flex-col gap-4">
+        <!-- Action Type Dropdown -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Action Type</mat-label>
+          <mat-select [ngModel]="filterAction()" (ngModelChange)="filterAction.set($event)">
+            <mat-option value="">All Actions</mat-option>
+            <mat-option value="Add">Add</mat-option>
+            <mat-option value="Update">Update</mat-option>
+            <mat-option value="Delete">Delete</mat-option>
+            <mat-option value="Sign in">Sign in</mat-option>
+            <mat-option value="Sign out">Sign out</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Collection Dropdown -->
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Target Module</mat-label>
+          <mat-select [ngModel]="filterCollection()" (ngModelChange)="filterCollection.set($event)">
+            <mat-option value="">All Modules</mat-option>
+            <mat-option value="user">User Management</mat-option>
+            <mat-option value="role">Roles & Settings</mat-option>
+            <mat-option value="organization">Organizations</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Date Filters -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1 w-full">
+            <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">From Date</span>
+            <input type="date" class="w-full h-10 px-3 border border-border rounded-md bg-transparent text-sm focus:outline-none focus:ring-1 focus:ring-primary" [ngModel]="filterStartDate()"
+              (ngModelChange)="filterStartDate.set($event)">
+          </div>
+
+          <div class="flex flex-col gap-1 w-full">
+            <span class="text-xs font-semibold text-muted-foreground uppercase tracking-wider">To Date</span>
+            <input type="date" class="w-full h-10 px-3 border border-border rounded-md bg-transparent text-sm focus:outline-none focus:ring-1 focus:ring-primary" [ngModel]="filterEndDate()"
+              (ngModelChange)="filterEndDate.set($event)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div footer class="flex items-center justify-between w-full">
+      <ui-button variant="outline" (click)="resetFilters()">Clear All</ui-button>
+      <ui-button (click)="applyFilters()">Apply Filters</ui-button>
+    </div>
+  </ui-drawer>
+</div>

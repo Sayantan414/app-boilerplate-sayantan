@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Settings",
+    "default": true
+  },
+  {
+    "name": "Master Files Management",
+    "default": true
+  },
+  {
+    "name": "Planning",
+    "default": false
+  }
+]

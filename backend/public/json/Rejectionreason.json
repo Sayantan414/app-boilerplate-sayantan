@@ -1,0 +1,83 @@
+[
+  {
+    "reason": "ALREADY ACCEPTED, DEMAND REPEATED"
+  },
+  {
+    "reason": "ALREADY MANY BLOCKS ACCEPTED ON SAME DATE"
+  },
+  {
+    "reason": "DEMAND DURATION IS NOT MENTIONED"
+  },
+  {
+    "reason": "DEMAND DURATION SHOULD BE LESS"
+  },
+  {
+    "reason": "DEMANDED DURATION IS MORE THAN CORIDOR DURATION"
+  },
+  {
+    "reason": "DEMANDED DURATION IS NOT AVAILABLE"
+  },
+  {
+    "reason": "DEMANDED DURATION IS NOT IN BLOCK CORRIDOR"
+  },
+  {
+    "reason": "DUE TO BLOCK GRANTED TO OTHER DEPTT"
+  },
+  {
+    "reason": "DUE TO OUT OF CORRIDOR"
+  },
+  {
+    "reason": "DUE TO WEEKLY TRAIN"
+  },
+  {
+    "reason": "EXCESS CAUTION DUE TO LHS WORK"
+  },
+  {
+    "reason": "JOINT NOTE NOT READY"
+  },
+  {
+    "reason": "LATE DEMAND, ROLLING BLOCK PLAN HAS ALREADY SENT TO HQ"
+  },
+  {
+    "reason": "Line occupied by stable load"
+  },
+  {
+    "reason": "MACHINE IS NOT IN PROPER WORKING CONDITION"
+  },
+  {
+    "reason": "MACHINE WORK SHOULD BE DEMAND IN NIGHT CORRIDOR"
+  },
+  {
+    "reason": "MAINTENANCE SHOULD BE SEPARATE-SEPARATE (UP OR DN LINE) LINE"
+  },
+  {
+    "reason": "MAY BE GRANT IN MEGA BLOCK"
+  },
+  {
+    "reason": "NO CORRIDOR AVAILABLE DUE TO NEW TRAIN HAS INTRODUCED"
+  },
+  {
+    "reason": "NOT SANCTIONED BY HQ TILL NOW"
+  },
+  {
+    "reason": "PEAK SEASON"
+  },
+  {
+    "reason": "PLEASE MENTION FULL REPERCUSSION"
+  },
+  {
+    "reason": "PLEASE PLAN IN CORRIDOR"
+  },
+  {
+    "reason": "REQUIRED DEMAND DURATION IS NOT AVAILABLE IN OUTSIDE CORRIDOR"
+  },
+  {
+    "reason": "REQUIRED PERMISSION FROM ALL DEPTT OFFICERS"
+  },
+  {
+    "reason": "SHORTAGE OF MAN POWERS"
+  },
+  {
+    "reason": "DEMANDED AFTER DAY/TIME LIMIT"
+  }
+]

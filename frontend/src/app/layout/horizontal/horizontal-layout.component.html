@@ -1,0 +1,38 @@
+<div class="flex flex-col min-h-screen bg-background">
+  <header class="header h-16 flex-shrink-0 bg-sidebar-bg backdrop-blur-md border-b border-sidebar-border sticky top-0 z-50">
+    <div class="max-w-[1400px] h-full mx-auto px-6 flex items-center justify-between">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-primary text-primary-foreground rounded-md flex items-center justify-center font-extrabold">B</div>
+          <span class="text-xl font-bold text-foreground">Boilerplate</span>
+        </div>
+        
+        <div class="hidden lg:block">
+           <app-navigation [items]="menuItems" mode="horizontal"></app-navigation>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <app-theme-switcher></app-theme-switcher>
+        <div class="w-[1px] h-6 bg-border"></div>
+        <app-user-menu></app-user-menu>
+        
+        <button class="lg:hidden w-10 h-10 flex items-center justify-center rounded-md text-muted-foreground hover:bg-accent/20 transition-all duration-200" (click)="isMobileMenuOpen = !isMobileMenuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    @if (isMobileMenuOpen) {
+      <div class="mobile-menu lg:hidden bg-sidebar-bg border-b border-sidebar-border p-4">
+        <app-navigation [items]="menuItems" mode="vertical"></app-navigation>
+      </div>
+    }
+  </header>
+
+  <main class="flex-1 py-6">
+    <div class="max-w-[1400px] mx-auto px-6">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

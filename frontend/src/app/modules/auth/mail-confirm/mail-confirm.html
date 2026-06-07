@@ -1,0 +1,70 @@
+<div class="login-layout">
+  <!-- Left Panel: Branding & Slideshow -->
+  <div class="login-brand">
+    <div class="slideshow-container">
+      @for (img of backgroundImages; track img; let i = $index) {
+        <div class="bg-slide" [class.active]="i === currentBgIndex()" [ngStyle]="{'background-image': 'url(' + img + ')'}"></div>
+      }
+    </div>
+    <div class="brand-overlay"></div>
+    <div class="brand-content">
+      <div class="logo-wrapper">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="16" height="16" x="4" y="3" rx="2" />
+            <path d="M4 11h16" />
+            <path d="M12 3v8" />
+            <path d="m8 19-2 3" />
+            <path d="m18 22-2-3" />
+            <path d="M8 15h.01" />
+            <path d="M16 15h.01" />
+          </svg>
+        </div>
+        <span class="logo-text">Boilerplate</span>
+      </div>
+      
+      <div class="brand-text-container">
+        <h1 class="brand-title">
+          Indian Railways<br/>
+          <span class="highlight">Engineering Management System</span>
+        </h1>
+        <p class="brand-description">
+          Streamlining infrastructure, optimizing engineering operations, and ensuring excellence across the railway network.
+        </p>
+      </div>
+
+      <div class="brand-footer">
+        <p>&copy; 2026 Indian Railways. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel: Success Message -->
+  <div class="login-form-container">
+    <div class="form-wrapper" style="text-align: center;">
+      <div style="margin-bottom: 2rem; display: flex; justify-content: center;">
+        <img src="assets/images/logos/boilerplate-logo.png" alt="Boilerplate Logo" style="width: 9rem; height: 9rem; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));" />
+      </div>
+      
+      <div class="logo-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981; border: 2px solid rgba(16, 185, 129, 0.2); width: 80px; height: 80px; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+        <mat-icon style="font-size: 3rem; width: 3rem; height: 3rem;">check_circle</mat-icon>
+      </div>
+      
+      <div class="form-header" style="text-align: center;">
+        <h2 style="color: #059669;">Success</h2>
+        <p>Your password has been reset successfully.</p>
+      </div>
+
+      <div style="background: rgba(14, 165, 233, 0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(14, 165, 233, 0.2); margin-bottom: 2rem; text-align: center;">
+        <p style="color: #4b5563; line-height: 1.5; font-size: 0.95rem; margin: 0;">
+          An <strong style="color: #1d4ed8;">OTP</strong> has been sent to your registered email.<br>
+          Please check your inbox to proceed with your next login.
+        </p>
+      </div>
+
+      <button mat-flat-button color="primary" routerLink="/auth/login" class="submit-btn" style="width: 100%;">
+        Login Now
+      </button>
+    </div>
+  </div>
+</div>

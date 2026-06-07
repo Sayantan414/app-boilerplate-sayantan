@@ -1,0 +1,239 @@
+@if (formGroup()) {
+<div [formGroup]="formGroup()!" class="grid gap-4 max-sm:grid-cols-1"
+  [style.grid-template-columns]="'repeat(' + columns() + ', minmax(0, 1fr))'">
+  @for (field of fields(); track field.key) {
+  @if (shouldShowField(field)) {
+  <div class="flex flex-col w-full max-sm:col-span-1"
+    [style.grid-column]="'span ' + (field.colSpan || 1) + ' / span ' + (field.colSpan || 1)">
+
+    <!-- Text/Number/Email/Tel Inputs -->
+    @if (field.type === 'text' || field.type === 'number' || field.type === 'email' || field.type === 'tel') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [type]="field.type" [placeholder]="field.placeholder || ''" [formControlName]="field.key"
+        [readonly]="!!field.readonly" [maxlength]="field.maxlength ?? null" (input)="onInputFilter($event, field)">
+      @if (field.suffix) {
+      <span matTextSuffix class="text-blue-600 font-medium pr-2">{{ field.suffix }}</span>
+      }
+      @if (field.suffixIcon) {
+      <button mat-icon-button matSuffix [matTooltip]="field.suffixTooltip || ''" (click)="onSuffixClick.emit(field.key)" type="button">
+        <mat-icon>{{ field.suffixIcon }}</mat-icon>
+      </button>
+      }
+      @if (formGroup()?.get(field.key)?.hasError('pattern')) {
+      <mat-error>
+        {{ field.key === 'mobile' ? 'Mobile number must be exactly 10 digits' : field.label + ' format is invalid' }}
+      </mat-error>
+      }
+    </mat-form-field>
+    }
+
+    <!-- Password Inputs with Toggle -->
+    @else if (field.type === 'password') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [type]="isPasswordHidden(field.key) ? 'password' : 'text'" [placeholder]="field.placeholder || ''"
+        [formControlName]="field.key">
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility(field.key, $event)"
+        [attr.aria-label]="'Toggle password visibility'" type="button">
+        <mat-icon>{{ isPasswordHidden(field.key) ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      @if (formGroup()?.get(field.key)?.hasError('minlength')) {
+      <mat-error>{{ field.label }} must be at least {{
+        formGroup()?.get(field.key)?.errors?.['minlength']?.requiredLength
+        }} characters</mat-error>
+      }
+    </mat-form-field>
+    }
+
+    <!-- Select Dropdowns -->
+    @else if (field.type === 'select') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <mat-select [formControlName]="field.key">
+        @for (opt of field.options; track opt.value) {
+        <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    }
+
+    <!-- Autocomplete Inputs -->
+    @else if (field.type === 'autocomplete') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input type="text" matInput [formControlName]="field.key" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        @for (opt of getFilteredOptions(field); track opt.value) {
+        <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    }
+
+    <!-- Textareas -->
+    @else if (field.type === 'textarea') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <textarea matInput [placeholder]="field.placeholder || ''" [formControlName]="field.key" rows="3"></textarea>
+    </mat-form-field>
+    }
+
+    <!-- Checkboxes -->
+    @else if (field.type === 'checkbox') {
+    <div class="flex items-center h-full min-h-[56px] px-1">
+      <mat-checkbox [formControlName]="field.key">
+        {{ field.label }}
+      </mat-checkbox>
+    </div>
+    }
+
+    <!-- Date Pickers -->
+    @else if (field.type === 'date') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [placeholder]="field.placeholder || ''" [formControlName]="field.key">
+      <mat-icon matSuffix [owlDateTimeTrigger]="dt" class="cursor-pointer opacity-70 hover:opacity-100 select-none">calendar_today</mat-icon>
+      <owl-date-time #dt pickerType="calendar"></owl-date-time>
+    </mat-form-field>
+    }
+
+    <!-- Date Time Pickers -->
+    @else if (field.type === 'datetime') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [placeholder]="field.placeholder || ''" [formControlName]="field.key">
+      <mat-icon matSuffix [owlDateTimeTrigger]="dt" class="cursor-pointer opacity-70 hover:opacity-100 select-none">schedule</mat-icon>
+      <owl-date-time #dt></owl-date-time>
+    </mat-form-field>
+    }
+
+    <!-- Radio Buttons -->
+    @else if (field.type === 'radio') {
+    <div class="flex items-center gap-2 px-3 border border-[hsl(var(--input-border))] rounded-[var(--radius-md)] h-[42px] bg-[hsl(var(--card))] w-full">
+      <span class="text-xs font-semibold text-muted-foreground whitespace-nowrap">{{ field.label }}:</span>
+      <mat-radio-group [formControlName]="field.key" class="flex gap-2 items-center">
+        @for (opt of field.options; track opt.value) {
+        <mat-radio-button [value]="opt.value" class="custom-radio text-xs">{{ opt.label }}</mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+    }
+
+  </div>
+  }
+  }
+</div>
+} @else {
+<div class="grid gap-4 max-sm:grid-cols-1" [style.grid-template-columns]="'repeat(' + columns() + ', minmax(0, 1fr))'">
+  @for (field of fields(); track field.key) {
+  @if (shouldShowField(field)) {
+  <div class="flex flex-col w-full max-sm:col-span-1"
+    [style.grid-column]="'span ' + (field.colSpan || 1) + ' / span ' + (field.colSpan || 1)">
+
+    <!-- Text/Number/Email/Tel Inputs -->
+    @if (field.type === 'text' || field.type === 'number' || field.type === 'email' || field.type === 'tel') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [type]="field.type" [placeholder]="field.placeholder || ''" [value]="field.value || ''"
+        [attr.maxlength]="field.maxlength ?? null" (input)="onInputFilter($event, field)">
+      @if (field.suffixIcon) {
+      <button mat-icon-button matSuffix [matTooltip]="field.suffixTooltip || ''" (click)="onSuffixClick.emit(field.key)" type="button">
+        <mat-icon>{{ field.suffixIcon }}</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+    }
+
+    <!-- Password Inputs with Toggle -->
+    @else if (field.type === 'password') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [type]="isPasswordHidden(field.key) ? 'password' : 'text'" [placeholder]="field.placeholder || ''"
+        [value]="field.value || ''">
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility(field.key, $event)"
+        [attr.aria-label]="'Toggle password visibility'" type="button">
+        <mat-icon>{{ isPasswordHidden(field.key) ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+    }
+
+    <!-- Select Dropdowns -->
+    @else if (field.type === 'select') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <mat-select [value]="field.value || ''">
+        @for (opt of field.options; track opt.value) {
+        <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    }
+
+    <!-- Autocomplete Inputs (Standalone) -->
+    @else if (field.type === 'autocomplete') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input type="text" matInput [(ngModel)]="field.value" [matAutocomplete]="autoStandalone">
+      <mat-autocomplete #autoStandalone="matAutocomplete">
+        @for (opt of getFilteredOptions(field); track opt.value) {
+        <mat-option [value]="opt.value">{{ opt.label }}</mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+    }
+
+    <!-- Textareas -->
+    @else if (field.type === 'textarea') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <textarea matInput [placeholder]="field.placeholder || ''" [value]="field.value || ''" rows="3"></textarea>
+    </mat-form-field>
+    }
+
+    <!-- Checkboxes -->
+    @else if (field.type === 'checkbox') {
+    <div class="flex items-center h-full min-h-[56px] px-1">
+      <mat-checkbox [checked]="!!field.value">
+        {{ field.label }}
+      </mat-checkbox>
+    </div>
+    }
+
+    <!-- Date Pickers -->
+    @else if (field.type === 'date') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [placeholder]="field.placeholder || ''" [(ngModel)]="field.value">
+      <mat-icon matSuffix [owlDateTimeTrigger]="dt" class="cursor-pointer opacity-70 hover:opacity-100 select-none">calendar_today</mat-icon>
+      <owl-date-time #dt pickerType="calendar"></owl-date-time>
+    </mat-form-field>
+    }
+
+    <!-- Date Time Pickers -->
+    @else if (field.type === 'datetime') {
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{ field.label }}</mat-label>
+      <input matInput [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [placeholder]="field.placeholder || ''" [(ngModel)]="field.value">
+      <mat-icon matSuffix [owlDateTimeTrigger]="dt" class="cursor-pointer opacity-70 hover:opacity-100 select-none">schedule</mat-icon>
+      <owl-date-time #dt></owl-date-time>
+    </mat-form-field>
+    }
+
+    <!-- Radio Buttons -->
+    @else if (field.type === 'radio') {
+    <div class="flex items-center gap-2 px-3 border border-[hsl(var(--input-border))] rounded-[var(--radius-md)] h-[42px] bg-[hsl(var(--card))] w-full">
+      <span class="text-xs font-semibold text-muted-foreground whitespace-nowrap">{{ field.label }}:</span>
+      <mat-radio-group [(ngModel)]="field.value" class="flex gap-2 items-center">
+        @for (opt of field.options; track opt.value) {
+        <mat-radio-button [value]="opt.value" class="custom-radio text-xs">{{ opt.label }}</mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+    }
+
+  </div>
+  }
+  }
+</div>
+}
