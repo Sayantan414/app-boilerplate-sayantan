@@ -595,24 +595,32 @@ const uploadProfilePic = async (req, res) => {
     const ext = originalName.substring(originalName.lastIndexOf('.')) || '.jpg';
     const fileName = moment().unix() + ext;
 
-    // Upload new file to cloud storage
+    // Upload new file to storage (local or S3 based on NODE_ENV)
     const uploadData = await storageService.uploadFile(tempPath, IMAGE_FOLDER, fileName);
 
-    // Fetch the existing user to grab old image name
+    // Fetch existing user to grab old image
     const old = await commondb.findOne(modelName, { _id });
     if (!old) return errorResponse(res, 'User not found', 404);
 
-    // Update user document with new image filename
-    await commondb.updateOne(modelName, { _id }, { $set: { image: uploadData.fileName } });
+    // Update user with new image filename and full URL
+    await commondb.updateOne(modelName, { _id }, {
+      $set: {
+        image: uploadData.fileName,
+        imageUrl: uploadData.url   // store full URL for frontend to display directly
+      }
+    });
 
     // Delete old image from storage (fire-and-forget)
-    if (old.image) {
+    if (old.image && old.image !== DUMMY_FILE_NAME) {
       storageService.deleteFile(IMAGE_FOLDER, old.image)
         .then(() => logger.info(`Old profile pic deleted: ${old.image}`))
         .catch(e => logger.error('Failed to delete old profile pic', e));
     }
 
-    return successResponse(res, 'Profile picture uploaded successfully', { image: uploadData.fileName });
+    return successResponse(res, 'Profile picture uploaded successfully', {
+      image: uploadData.fileName,
+      imageUrl: uploadData.url
+    });
   } catch (error) {
     logger.error('Upload Profile Pic Error:', error);
     return errorResponse(res, error.message || 'Error uploading profile picture', 500);
@@ -635,9 +643,11 @@ const getProfilePic = async (req, res) => {
 
   try {
     const data = await storageService.getFile(IMAGE_FOLDER, file);
+
+    // Set content type header so browser renders image correctly
+    res.set('Content-Type', data.ContentType || 'image/jpeg');
     res.send(data.Body);
   } catch (error) {
-    // Fallback to the local dummy image if cloud retrieval fails
     logger.warn(`Profile pic not found in storage (${file}), serving fallback`);
     const filePath = path.resolve(IMAGE_PATH, DUMMY_FILE_NAME);
     fs.createReadStream(filePath).pipe(res);

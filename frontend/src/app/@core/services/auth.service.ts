@@ -52,7 +52,20 @@ export class AuthService {
     'View Designation Master'
   ]);
 
-  constructor() {
+  mapUser(user: any): User {
+    if (!user) return null as any;
+    let profilePicUrl = undefined;
+    if (user.imageUrl) {
+      const url = user.imageUrl.replace('/api/user/profilePic/', '/api/user/getProfilePic/').replace('/user/profilePic/', '/user/getProfilePic/');
+      profilePicUrl = url.startsWith('http') ? url : `${environment.apiUrl.replace('/api', '')}${url}`;
+    } else if (user.image && user.image !== 'nouser.png') {
+      profilePicUrl = `${environment.apiUrl}/user/getProfilePic/${user.image}`;
+    }
+    return {
+      ...user,
+      id: user.id || user._id,
+      profilePic: profilePicUrl
+    };
   }
 
   login(credentials: any): Observable<any> {
@@ -62,7 +75,7 @@ export class AuthService {
           tap(defaultRoles => {
             const { accessToken, ...user } = res;
             this.accessToken.set(accessToken);
-            this.currentUser.set(user as User);
+            this.currentUser.set(this.mapUser(user));
 
             let privs = user.role_privilege || user.privilege || [];
             if (privs.length === 0 && user.role) {
@@ -136,7 +149,7 @@ export class AuthService {
                 } catch (e) { }
               }
             }
-            this.currentUser.set(user);
+            this.currentUser.set(this.mapUser(user));
 
             let privs = user.role_privilege || user.privilege || [];
             if (privs.length === 0 && user.role) {

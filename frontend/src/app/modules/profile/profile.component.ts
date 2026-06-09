@@ -5,6 +5,7 @@ import { AuthService, User } from '../../@core/services/auth.service';
 import { UserService } from '../../@core/services/user.service';
 import { SnackbarService } from '../../@core/services/snackbar.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -87,29 +88,25 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64String = reader.result as string;
-      this.uploadProfilePic(base64String);
-    };
-    reader.readAsDataURL(file);
+    this.uploadProfilePic(file);
   }
 
-  private uploadProfilePic(base64Data: string) {
+  private uploadProfilePic(file: File) {
     const user = this.currentUser();
     if (!user) return;
 
     this.isSubmitting.set(true);
-    const updatePayload = {
-      _id: user.id,
-      ocode: user.ocode,
-      profilePic: base64Data
-    };
 
-    this.userService.update(updatePayload).subscribe({
-      next: () => {
+    this.userService.uploadProfilePic(user.id, file).subscribe({
+      next: (res) => {
+        // The backend returns successResponse with data containing image and imageUrl
+        const rawUrl = res.data?.imageUrl || res.imageUrl;
+        const profilePicUrl = rawUrl
+          ? (rawUrl.startsWith('http') ? rawUrl : `${environment.apiUrl.replace('/api', '')}${rawUrl}`)
+          : undefined;
+
         // Update local session signal
-        const updatedUser: User = { ...user, profilePic: base64Data };
+        const updatedUser: User = { ...user, profilePic: profilePicUrl };
         this.authService.currentUser.set(updatedUser);
         this.snackbar.success('Profile picture updated successfully!');
         this.isSubmitting.set(false);

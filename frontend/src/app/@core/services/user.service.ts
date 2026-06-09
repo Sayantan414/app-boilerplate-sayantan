@@ -95,4 +95,14 @@ export class UserService {
       finalize(() => this.isLoading.set(false))
     );
   }
+
+  uploadProfilePic(id: string, file: File): Observable<any> {
+    this.isLoading.set(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('_id', id);
+    return this.http.post<any>(`${this.apiUrl}/uploadProfilePic`, formData).pipe(
+      finalize(() => this.isLoading.set(false))
+    );
+  }
 }

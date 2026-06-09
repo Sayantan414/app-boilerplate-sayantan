@@ -34,7 +34,7 @@ router.post('/updatePassword', auth, requirePrivilege('Reset Password'), userCon
 router.post('/resetPassword', userController.resetPassword);
 
 // Profile Picture
-router.post('/upload', auth, multipartMiddleware, userController.uploadProfilePic);
-router.get('/profilePic/:file', userController.getProfilePic);
+router.post('/uploadProfilePic', auth, multipartMiddleware, userController.uploadProfilePic);
+router.get('/getProfilePic/:file', userController.getProfilePic);
 
 module.exports = router;

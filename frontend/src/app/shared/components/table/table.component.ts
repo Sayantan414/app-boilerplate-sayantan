@@ -2,6 +2,7 @@ import { Component, input, output, signal, HostListener, ElementRef, inject } fr
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatMenuModule } from '@angular/material/menu';
+import { environment } from '../../../../environments/environment';
 
 export interface TableAction {
   label: string;
@@ -53,7 +54,13 @@ export interface TableColumn {
                        [style.justify-content]="col.type === 'actions' ? 'flex-end' : 'flex-start'">
                     @if (col.type === 'user') {
                       <div class="flex items-center gap-3 min-w-0 w-full">
-                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-semibold text-xs flex-shrink-0">{{ row['avatar'] || getCellValue(row, col).substring(0, 2) }}</div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground flex items-center justify-center font-semibold text-xs flex-shrink-0 overflow-hidden">
+                          @if (getUserAvatarUrl(row)) {
+                            <img [src]="getUserAvatarUrl(row)" alt="Avatar" class="w-full h-full object-cover">
+                          } @else {
+                            {{ getCellValue(row, col).substring(0, 2) }}
+                          }
+                        </div>
                         <div class="flex flex-col min-w-0 break-all overflow-wrap-anywhere whitespace-normal">
                           <span class="font-semibold text-foreground">{{ getCellValue(row, col) }}</span>
                         </div>
@@ -121,6 +128,18 @@ export class TableComponent {
 
   private readonly elementRef = inject(ElementRef);
   private readonly sanitizer = inject(DomSanitizer);
+
+  getUserAvatarUrl(row: any): string | null {
+    const rawUrl = row.imageUrl || row.profilePic;
+    if (rawUrl) {
+      const url = rawUrl.replace('/api/user/profilePic/', '/api/user/getProfilePic/').replace('/user/profilePic/', '/user/getProfilePic/');
+      return url.startsWith('http') ? url : `${environment.apiUrl.replace('/api', '')}${url}`;
+    }
+    if (row.image && row.image !== 'nouser.png') {
+      return `${environment.apiUrl}/user/getProfilePic/${row.image}`;
+    }
+    return null;
+  }
 
   handleAction(type: string, row: any) {
     this.onAction.emit({ type, row });
