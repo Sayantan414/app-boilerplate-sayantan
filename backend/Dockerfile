@@ -1,13 +1,14 @@
-# Stage 1 — install dependencies and build
 FROM node:20-alpine
 
 WORKDIR /app
 
+RUN mkdir -p logs
+
 COPY package*.json ./
-RUN npm install
+RUN npm install --omit=dev
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 4065
 
 CMD ["node", "src/server.js"]

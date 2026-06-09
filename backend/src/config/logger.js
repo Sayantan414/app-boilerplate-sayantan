@@ -24,21 +24,21 @@ const logger = winston.createLogger({
   ],
 });
 
+// Write to files in production — CloudWatch agent reads these
 if (config.env === 'production') {
   logger.add(
     new winston.transports.File({
-      filename: 'error.log',
+      filename: 'logs/error.log',
       level: 'error',
     })
   );
   logger.add(
     new winston.transports.File({
-      filename: 'combined.log',
+      filename: 'logs/backend.log',
     })
   );
 }
 
-// Add compatibility methods for ymsapi
 logger.logInfo = (data) => logger.info(data);
 logger.logError = (data) => logger.error(data);
 
