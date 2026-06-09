@@ -97,7 +97,9 @@ const uploadFile = async (sourcePath, targetFolder, targetFileName) => {
       logger.info(`S3 uploaded file: ${key}`);
       return {
         fileName: targetFileName,
-        url: `https://${config.s3.bucketName}.s3.${config.s3.region}.amazonaws.com/${key}`
+        url: config.s3.cloudFrontUrl
+          ? `${config.s3.cloudFrontUrl}/${key}`
+          : `https://${config.s3.bucketName}.s3.${config.s3.region}.amazonaws.com/${key}`
       };
     }
   } finally {
