@@ -1,5 +1,5 @@
-<div class="flex min-h-screen w-full bg-slate-50">
-  <div class="relative flex-[1] hidden lg:flex flex-col p-16 overflow-hidden bg-slate-900 border-r border-slate-200">
+<div class="flex min-h-screen w-full login-container">
+  <div class="relative flex-[1] hidden lg:flex flex-col p-16 overflow-hidden bg-slate-900 border-r border-border/20">
     <div
       class="absolute inset-0 z-0 opacity-[0.03] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:24px_24px]">
     </div>
@@ -32,19 +32,19 @@
       </div>
 
       <div class="text-xs font-normal text-slate-500">
-        <p class="m-0">&copy; 2026 Enterprise Systems Core. All rights reserved.</p>
+        <p class="m-0">&copy; 2026 Sayantan Sadhu. All rights reserved.</p>
       </div>
     </div>
   </div>
 
-  <div class="w-full lg:max-w-[560px] bg-white flex items-center justify-center p-8 lg:p-16 relative z-[10]">
+  <div class="w-full lg:max-w-[560px] form-panel flex items-center justify-center p-8 lg:p-16 relative z-[10]">
     <div class="w-full max-w-[380px] flex flex-col relative z-[1]">
 
       <div class="mb-8 text-center lg:text-left">
-        <h2 class="text-3xl font-bold tracking-tight text-slate-900 m-0 pb-1.5">
+        <h2 class="text-3xl font-bold tracking-tight text-title m-0 pb-1.5">
           Sign In
         </h2>
-        <p class="text-slate-500 text-sm m-0 leading-relaxed">
+        <p class="text-muted text-sm m-0 leading-relaxed">
           Enter your registered credentials to access your dashboard.
         </p>
       </div>
@@ -56,10 +56,10 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
 
         <div class="flex flex-col gap-1.5">
-          <label class="text-xs font-semibold uppercase tracking-wider text-slate-600">User ID / Email Address</label>
+          <label class="text-xs font-semibold uppercase tracking-wider text-muted">User ID / Email Address</label>
           <mat-form-field appearance="outline" class="w-full custom-field">
             <input matInput formControlName="userid" placeholder="name@example.com" autocomplete="username">
-            <mat-icon matIconPrefix class="text-slate-400">mail_outline</mat-icon>
+            <mat-icon matIconPrefix>mail_outline</mat-icon>
             @if (loginForm.get('userid')?.hasError('required')) {
             <mat-error>Identity credential is required</mat-error>
             }
@@ -68,19 +68,19 @@
 
         <div class="flex flex-col gap-1.5">
           <div class="flex justify-between items-center">
-            <label class="text-xs font-semibold uppercase tracking-wider text-slate-600">Password</label>
+            <label class="text-xs font-semibold uppercase tracking-wider text-muted">Password</label>
             <a routerLink="/auth/forgot-password"
-              class="text-blue-600 hover:text-blue-700 transition-colors no-underline text-xs font-semibold">
+              class="text-primary-link transition-colors text-xs font-semibold">
               Forgot Password?
             </a>
           </div>
           <mat-form-field appearance="outline" class="w-full custom-field">
             <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="password"
               placeholder="••••••••" autocomplete="current-password">
-            <mat-icon matIconPrefix class="text-slate-400">lock_outline</mat-icon>
+            <mat-icon matIconPrefix>lock_outline</mat-icon>
             <button mat-icon-button matIconSuffix (click)="hidePassword.set(!hidePassword())"
               [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword()" type="button"
-              class="text-slate-400">
+              class="text-muted">
               <mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             @if (loginForm.get('password')?.hasError('required')) {
@@ -96,14 +96,14 @@
       </form>
 
       <div class="flex items-center gap-3 my-4">
-        <div class="flex-1 border-t border-slate-200"></div>
-        <span class="text-xs text-slate-500">or</span>
-        <div class="flex-1 border-t border-slate-200"></div>
+        <div class="flex-1 border-t border-border"></div>
+        <span class="text-xs text-muted">or</span>
+        <div class="flex-1 border-t border-border"></div>
       </div>
 
-      <p class="text-center text-sm text-slate-600 mb-2">
+      <p class="text-center text-sm text-muted mb-2">
         Don't have an account?
-        <a routerLink="/auth/register" class="font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+        <a routerLink="/auth/register" class="font-semibold text-primary-link transition-colors">
           Create one
         </a>
       </p>

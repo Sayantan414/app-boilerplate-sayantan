@@ -2,23 +2,33 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { authGuard } from './@core/guards/auth.guard';
 import { roleGuard } from './@core/guards/role.guard';
+import { guestGuard } from './@core/guards/guest.guard';
 
 export const routes: Routes = [
   {
     path: 'auth/login',
+    canActivate: [guestGuard],
     loadComponent: () => import('./modules/auth/login/login.component').then(m => m.LoginComponent)
   },
   {
     path: 'auth/forgot-password',
+    canActivate: [guestGuard],
     loadComponent: () => import('./modules/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
   },
   {
     path: 'auth/mail-confirm',
+    canActivate: [guestGuard],
     loadComponent: () => import('./modules/auth/mail-confirm/mail-confirm').then(m => m.MailConfirm)
   },
   {
     path: 'auth/reset-password',
+    canActivate: [guestGuard],
     loadComponent: () => import('./modules/auth/reset-password/reset-password').then(m => m.ResetPassword)
+  },
+  {
+    path: '',
+    loadComponent: () => import('./modules/portfolio/portfolio.component').then(m => m.PortfolioComponent),
+    pathMatch: 'full'
   },
   {
     path: '',

@@ -28,7 +28,7 @@ import { SnackbarService } from '../../../@core/services/snackbar.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -36,34 +36,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   private snackBar = inject(SnackbarService);
 
   loginForm: FormGroup = this.fb.group({
-    userid: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    userid: ['6296126935', [Validators.required]],
+    password: ['123456', [Validators.required]]
   });
 
   isLoading = signal(false);
   hidePassword = signal(true);
 
-  backgroundImages = [
-    '/assets/images/vande1.jpg',
-    '/assets/images/vande2.jpg',
-    '/assets/images/vande3.jpg',
-    '/assets/images/vande4.jpg',
-    '/assets/images/vande5.jpg'
-  ];
   currentBgIndex = signal(0);
-  private intervalId: any;
 
   ngOnInit() {
-    this.intervalId = setInterval(() => {
-      this.currentBgIndex.update(idx => (idx + 1) % this.backgroundImages.length);
-    }, 10000); // 10 seconds
+
   }
 
-  ngOnDestroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
+
 
   onSubmit() {
     if (this.loginForm.invalid) return;
@@ -74,15 +60,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.isLoading.set(false);
         if (res.onetime) {
           sessionStorage.setItem('resetUser', JSON.stringify(res));
-          this.router.navigate(['/auth/reset-password']);
+          this.router.navigate(['/auth/reset-password'], { replaceUrl: true });
           this.snackBar.success('Please reset your temporary password.');
         } else {
           const user = this.authService.currentUser();
           if (user?.role === 'APPADMIN') {
-            this.router.navigate(['/app-dashboard']);
+            this.router.navigate(['/app-dashboard'], { replaceUrl: true });
           } else {
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
-            this.router.navigate([returnUrl]);
+            this.router.navigate([returnUrl], { replaceUrl: true });
           }
           this.snackBar.success('Welcome back!');
         }

@@ -1,0 +1,240 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Smooth scrolling for anchor targets */
+:host-context(html) {
+  scroll-behavior: smooth;
+}
+
+/* Floating background blobs animation */
+@keyframes float-blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -40px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-float-1 {
+  animation: float-blob 18s infinite ease-in-out;
+}
+
+.animate-float-2 {
+  animation: float-blob 24s infinite ease-in-out;
+  animation-delay: 4s;
+}
+
+/* Staggered fade in and slide up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+/* Custom styles for glowing gradient backgrounds */
+.hero-glow-1 {
+  background: radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 70%);
+}
+
+.hero-glow-2 {
+  background: radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%);
+}
+
+/* Reset buttons inside navigation header to look like text links */
+header button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+}
+
+header button:focus {
+  outline: none;
+}
+
+/* Smooth transitions for all cards */
+.tech-card,
+.project-card,
+.metric-card,
+.experience-card,
+.education-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-card:hover,
+.project-card:hover,
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+}
+
+/* Interactive underline effect for header links */
+header button {
+  position: relative;
+}
+
+header button::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: hsl(var(--primary));
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+header button:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* ==================== BLINK ANIMATION ==================== */
+@keyframes blink-opacity {
+  from, to { opacity: 0 }
+  50% { opacity: 1 }
+}
+
+.animate-blink {
+  animation: blink-opacity 0.75s step-end infinite;
+}
+
+/* ==================== SKILLS FLOATING ANIMATION ==================== */
+@keyframes float-mini {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.skill-badge-float {
+  display: inline-flex;
+  animation: float-mini 3s ease-in-out infinite;
+}
+
+.skill-delay-0 {
+  animation-delay: 0.1s;
+}
+
+.skill-delay-1 {
+  animation-delay: 0.8s;
+  animation-duration: 3.4s;
+}
+
+.skill-delay-2 {
+  animation-delay: 1.5s;
+  animation-duration: 2.8s;
+}
+
+.skill-delay-3 {
+  animation-delay: 2.2s;
+  animation-duration: 3.8s;
+}
+
+/* ==================== CARDS REVEAL ANIMATION ==================== */
+@keyframes reveal-card {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.project-card-animate {
+  opacity: 0;
+  animation: reveal-card 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.project-delay-0 {
+  animation-delay: 100ms;
+}
+
+.project-delay-1 {
+  animation-delay: 250ms;
+}
+
+.project-delay-2 {
+  animation-delay: 400ms;
+}
+
+.project-delay-3 {
+  animation-delay: 550ms;
+}
+
+.project-delay-4 {
+  animation-delay: 700ms;
+}
+
+.project-delay-5 {
+  animation-delay: 850ms;
+}
+
+/* ==================== MOBILE DRAWER FADE IN ==================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

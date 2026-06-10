@@ -1,0 +1,530 @@
+<div class="min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300 overflow-x-hidden">
+  <!-- Nav Bar -->
+  <header class="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
+    <div class="container mx-auto flex h-16 items-center justify-between px-6">
+      <div class="flex items-center gap-2">
+        <img src="/assets/images/mypic.JPG" alt="Sayantan Sadhu"
+          class="h-10 w-10 rounded-lg object-cover shadow-lg shadow-primary/20 border border-primary/20" />
+        <span
+          class="text-xl font-bold tracking-tight bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+          {{ profile.name }}
+        </span>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-muted-foreground">
+        <button (click)="scrollToSection('experience')" class="hover:text-primary transition-colors">Experience</button>
+        <button (click)="scrollToSection('projects')" class="hover:text-primary transition-colors">Projects</button>
+        <button (click)="scrollToSection('deployment')" class="hover:text-primary transition-colors">Deployment</button>
+        <button (click)="scrollToSection('skills')" class="hover:text-primary transition-colors">Skills</button>
+        <button (click)="scrollToSection('education')" class="hover:text-primary transition-colors">Education</button>
+
+        <!-- Theme Switcher Button -->
+        <div class="w-[1px] h-4 bg-border"></div>
+        <button (click)="layoutService.toggleTheme()"
+          class="flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 active:scale-95"
+          [attr.aria-label]="'Toggle theme'">
+          @if (layoutService.theme() === 'light') {
+          <!-- Moon Icon -->
+          <svg class="transition-transform duration-300 active:rotate-[15deg]" xmlns="http://www.w3.org/2000/svg"
+            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+          } @else {
+          <!-- Sun Icon -->
+          <svg class="transition-transform duration-300 active:rotate-[15deg]" xmlns="http://www.w3.org/2000/svg"
+            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
+          </svg>
+          }
+        </button>
+      </div>
+
+      <!-- Mobile Actions (Theme Switcher and Menu Button) -->
+      <div class="flex md:hidden items-center gap-3">
+        <button (click)="layoutService.toggleTheme()"
+          class="flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 active:scale-95"
+          [attr.aria-label]="'Toggle theme'">
+          @if (layoutService.theme() === 'light') {
+          <svg class="transition-transform duration-300 active:rotate-[15deg]" xmlns="http://www.w3.org/2000/svg"
+            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+          } @else {
+          <svg class="transition-transform duration-300 active:rotate-[15deg]" xmlns="http://www.w3.org/2000/svg"
+            width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
+          </svg>
+          }
+        </button>
+
+        <button (click)="isMobileMenuOpen.set(!isMobileMenuOpen())"
+          class="flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200"
+          [attr.aria-label]="'Toggle menu'">
+          @if (isMobileMenuOpen()) {
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+          }
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    @if (isMobileMenuOpen()) {
+    <div
+      class="md:hidden border-t border-border bg-background/95 backdrop-blur-md px-6 py-4 flex flex-col gap-3 animate-fade-in shadow-lg">
+      <button (click)="scrollToSection('experience'); isMobileMenuOpen.set(false)"
+        class="text-left py-2 hover:text-primary transition-colors text-sm font-semibold">Experience</button>
+      <button (click)="scrollToSection('projects'); isMobileMenuOpen.set(false)"
+        class="text-left py-2 hover:text-primary transition-colors text-sm font-semibold">Projects</button>
+      <button (click)="scrollToSection('deployment'); isMobileMenuOpen.set(false)"
+        class="text-left py-2 hover:text-primary transition-colors text-sm font-semibold">Deployment</button>
+      <button (click)="scrollToSection('skills'); isMobileMenuOpen.set(false)"
+        class="text-left py-2 hover:text-primary transition-colors text-sm font-semibold">Skills</button>
+      <button (click)="scrollToSection('education'); isMobileMenuOpen.set(false)"
+        class="text-left py-2 hover:text-primary transition-colors text-sm font-semibold">Education</button>
+    </div>
+    }
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-16 lg:py-24 flex-grow flex items-center">
+    <!-- Glowing backgrounds -->
+    <div
+      class="absolute -top-40 left-1/4 -z-10 h-[400px] w-[400px] rounded-full bg-primary/15 blur-[120px] animate-float-1">
+    </div>
+    <div
+      class="absolute top-20 right-1/4 -z-10 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[120px] animate-float-2">
+    </div>
+
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="grid gap-12 lg:grid-cols-12 items-center">
+        <!-- Hero Text -->
+        <div class="lg:col-span-7 text-left">
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-6 animate-fade-in-up">
+            <span class="h-2 w-2 rounded-full bg-primary animate-pulse"></span> Open to Opportunities
+          </span>
+
+          <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none mb-4 animate-fade-in-up delay-100">
+            Hi, I'm <span
+              class="bg-gradient-to-r from-primary via-blue-500 to-indigo-600 bg-clip-text text-transparent">{{
+              profile.name }}</span>
+          </h1>
+
+          <div class="text-xl sm:text-2xl font-bold text-foreground/90 mb-6 animate-fade-in-up delay-200">
+            {{ profile.title }}
+          </div>
+
+          <p class="text-base sm:text-lg text-muted-foreground mb-8 leading-relaxed animate-fade-in-up delay-300">
+            Software Engineer with <span class="text-primary font-bold text-lg">{{ yearsOfExperience }}</span> years of
+            full-time experience delivering scalable <span class="font-semibold text-foreground">Angular-based
+              web</span> and <span class="font-semibold text-foreground">Node.js backend</span> applications, along with
+            <span class="font-semibold text-foreground">Flutter mobile</span> solutions for industrial and railway
+            systems.
+          </p>
+
+          <!-- Contact Badges -->
+          <div class="flex flex-wrap gap-3 mb-10 animate-fade-in-up delay-300">
+            <a [href]="'mailto:' + profile.email"
+              class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium hover:border-primary/50 hover:bg-accent hover:text-accent-foreground transition-all">
+              ✉️ <span>{{ profile.email }}</span>
+            </a>
+            <a [href]="'tel:' + profile.phone"
+              class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium hover:border-primary/50 hover:bg-accent hover:text-accent-foreground transition-all">
+              📞 <span>{{ profile.phone }}</span>
+            </a>
+            <a [href]="profile.github" target="_blank"
+              class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium hover:border-primary/50 hover:bg-accent hover:text-accent-foreground transition-all">
+              <img src="/assets/images/icons/GitHub.png" alt="GitHub" class="w-4 h-4 object-contain" />
+              <span>GitHub</span>
+            </a>
+            <a [href]="profile.linkedin" target="_blank"
+              class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium hover:border-primary/50 hover:bg-accent hover:text-accent-foreground transition-all">
+              <img src="/assets/images/icons/LinkedIn.png" alt="LinkedIn" class="w-4 h-4 object-contain" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center gap-4 animate-fade-in-up delay-400">
+            <button (click)="scrollToSection('projects')"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground transition-all duration-300 hover:bg-primary/95 hover:shadow-xl hover:shadow-primary/30 active:scale-95">
+              Explore Projects
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+            <button (click)="scrollToSection('experience')"
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-8 py-3.5 text-base font-semibold text-card-foreground transition-all duration-300 hover:bg-accent hover:text-accent-foreground active:scale-95">
+              View Experience
+            </button>
+          </div>
+        </div>
+
+        <!-- Tech Stack Display Cards (Using provided PNG assets) -->
+        <div class="lg:col-span-5 grid grid-cols-2 gap-4 animate-fade-in-up delay-200">
+          <!-- Angular Card -->
+          <div
+            class="tech-card rounded-2xl border border-red-500/20 bg-card/40 p-4 shadow-sm hover:border-red-500/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center text-center">
+            <img src="/assets/images/icons/Angular.png" alt="Angular" class="w-12 h-12 object-contain mb-3" />
+            <span class="font-bold text-sm text-foreground">Angular</span>
+            <span class="text-xs text-muted-foreground/80 mt-1">Frontend Layer</span>
+          </div>
+
+          <!-- Node.js Card -->
+          <div
+            class="tech-card rounded-2xl border border-green-500/20 bg-card/40 p-4 shadow-sm hover:border-green-500/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center text-center">
+            <img src="/assets/images/icons/Node.js.png" alt="Node.js" class="w-12 h-12 object-contain mb-3" />
+            <span class="font-bold text-sm text-foreground">Node.js</span>
+            <span class="text-xs text-muted-foreground/80 mt-1">Backend API</span>
+          </div>
+
+          <!-- MongoDB Card -->
+          <div
+            class="tech-card rounded-2xl border border-emerald-500/20 bg-card/40 p-4 shadow-sm hover:border-emerald-500/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center text-center">
+            <img src="/assets/images/icons/MongoDB.png" alt="MongoDB" class="w-12 h-12 object-contain mb-3" />
+            <span class="font-bold text-sm text-foreground">MongoDB</span>
+            <span class="text-xs text-muted-foreground/80 mt-1">Document Store</span>
+          </div>
+
+          <!-- Docker Card -->
+          <div
+            class="tech-card rounded-2xl border border-blue-400/20 bg-card/40 p-4 shadow-sm hover:border-blue-400/60 hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-center text-center">
+            <img src="/assets/images/icons/Docker.png" alt="Docker" class="w-12 h-12 object-contain mb-3" />
+            <span class="font-bold text-sm text-foreground">Docker</span>
+            <span class="text-xs text-muted-foreground/80 mt-1">Containers</span>
+          </div>
+
+          <!-- AWS Card -->
+          <div
+            class="tech-card col-span-2 rounded-2xl border border-yellow-500/20 bg-card/40 p-4 shadow-sm hover:border-yellow-500/60 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-4">
+            <img src="/assets/images/icons/AWS.png" alt="AWS" class="w-12 h-12 object-contain" />
+            <div class="text-left">
+              <span class="font-bold text-sm block text-foreground">Amazon Web Services</span>
+              <span class="text-xs text-muted-foreground/80">Cloud Infrastructure Host</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Grid -->
+  <section class="py-12 border-t border-border bg-card/10">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="grid gap-6 grid-cols-2 md:grid-cols-4">
+        @for (item of achievements; track item.label) {
+        <div
+          class="text-center p-6 rounded-2xl border border-border bg-card/60 shadow-sm hover:scale-105 transition-all duration-300">
+          <p class="text-3xl sm:text-4xl font-extrabold text-primary mb-1">{{ item.metric }}</p>
+          <p class="text-sm font-bold text-foreground/90 mb-1">{{ item.label }}</p>
+          <p class="text-xs text-muted-foreground">{{ item.desc }}</p>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="py-20 border-t border-border">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold tracking-tight mb-4">Career Timeline</h2>
+        <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
+      </div>
+
+      <div class="space-y-12">
+        @for (job of experience; track job.role) {
+        <div class="relative pl-6 sm:pl-8 border-l border-border/80 group">
+          <div
+            class="absolute -left-1.5 top-1.5 h-3.5 w-3.5 rounded-full border border-card bg-primary transition-all group-hover:scale-125">
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div>
+              <h3 class="text-xl font-bold group-hover:text-primary transition-colors">{{ job.role }}</h3>
+              <p class="text-md font-semibold text-foreground/80">{{ job.company }}</p>
+            </div>
+            <div class="text-left sm:text-right flex-shrink-0">
+              <span class="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                {{ job.duration }}
+              </span>
+              <p class="text-xs text-muted-foreground mt-1">{{ job.location }}</p>
+            </div>
+          </div>
+
+          <p class="text-sm sm:text-base text-muted-foreground leading-relaxed">
+            {{ job.summary }}
+          </p>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section (Summarized Core Contributions) -->
+  <section id="projects" class="py-20 border-t border-border bg-card/30">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold tracking-tight mb-4">Core Projects & Contributions</h2>
+        <p class="text-sm text-muted-foreground max-w-md mx-auto">Key platforms engineered across industrial, railway,
+          and logistics domains.</p>
+        <div class="h-1 w-12 bg-primary mx-auto rounded-full mt-4"></div>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        @for (project of projects; track project.title; let idx = $index) {
+        <div
+          [class]="'project-card flex flex-col justify-between rounded-2xl border border-border bg-card p-6 shadow-sm hover:shadow-md hover:border-primary/50 transition-all duration-300 project-card-animate project-delay-' + (idx % 6)">
+          <div>
+            <div class="flex justify-between items-start mb-4">
+              <span class="text-xs font-bold text-primary bg-primary/10 rounded px-2.5 py-1">
+                {{ project.client }}
+              </span>
+            </div>
+            <h3 class="text-lg font-bold mb-2">{{ project.title }}</h3>
+            <p class="text-xs font-semibold text-muted-foreground/80 mb-3">{{ project.role }}</p>
+            <p class="text-sm text-muted-foreground leading-relaxed mb-6">{{ project.description }}</p>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5 mt-auto">
+            @for (tag of project.tech; track tag) {
+            <span
+              class="inline-flex items-center gap-1 rounded bg-accent/80 px-2 py-0.5 text-xs font-semibold text-accent-foreground">
+              @if (tag === 'Angular' || tag === 'Angular 21') {
+              <img src="/assets/images/icons/Angular.png" alt="Angular" class="w-3 h-3 object-contain" />
+              } @else if (tag === 'Node.js' || tag === 'NodeJS') {
+              <img src="/assets/images/icons/Node.js.png" alt="Node" class="w-3 h-3 object-contain" />
+              } @else if (tag === 'MongoDB') {
+              <img src="/assets/images/icons/MongoDB.png" alt="Mongo" class="w-3 h-3 object-contain" />
+              } @else if (tag === 'Docker') {
+              <img src="/assets/images/icons/Docker.png" alt="Docker" class="w-3 h-3 object-contain" />
+              } @else if (tag === 'Flutter') {
+              <img src="/assets/images/icons/Flutter.png" alt="Flutter" class="w-3 h-3 object-contain" />
+              } @else if (tag === 'PostgreSQL') {
+              <img src="/assets/images/icons/PostgresSQL.png" alt="PostgreSQL" class="w-3 h-3 object-contain" />
+              } @else if (tag === 'MySQL') {
+              <img src="/assets/images/icons/MySQL.png" alt="MySQL" class="w-3 h-3 object-contain" />
+              }
+              {{ tag }}
+            </span>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Docker & AWS Deployment Section -->
+  <section id="deployment"
+    class="py-20 border-t border-border bg-gradient-to-b from-primary/5 via-blue-500/5 to-background relative overflow-hidden">
+    <!-- Glowing orbs -->
+    <div class="absolute top-1/2 left-10 -z-10 h-72 w-72 rounded-full bg-yellow-500/5 blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 -z-10 h-72 w-72 rounded-full bg-blue-500/5 blur-3xl"></div>
+
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold tracking-tight mb-4">Hands-On Deployment & Lab Practices</h2>
+        <p class="text-sm text-muted-foreground max-w-xl mx-auto">Demonstrating practical application hosting lifecycle
+          through self-taught DevOps and containerization experiments.</p>
+        <div class="h-1 w-12 bg-primary mx-auto rounded-full mt-4"></div>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-2 items-center mb-12">
+        <div>
+          <h3 class="text-xl font-bold mb-4">Personal Deployment Lab Workflow</h3>
+          <p class="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
+            To better understand how web services run in production, I set up and maintain local and cloud labs to test
+            deployment setups and optimize packaging.
+          </p>
+
+          <!-- Stages list -->
+          <ul class="space-y-4 text-sm sm:text-base">
+            <li class="flex items-start gap-3">
+              <span
+                class="flex-shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-xs mt-0.5">1</span>
+              <div>
+                <strong class="text-foreground font-semibold">Container Packaging (Docker):</strong>
+                <span class="text-muted-foreground"> Writing clean Multi-stage Dockerfiles to build and bundle the
+                  Angular application and the Node.js backend.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span
+                class="flex-shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-xs mt-0.5">2</span>
+              <div>
+                <strong class="text-foreground font-semibold">Self-Hosted VMs (AWS EC2):</strong>
+                <span class="text-muted-foreground"> Deploying virtual servers on AWS EC2 instances to run the
+                  dockerized environments.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span
+                class="flex-shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-xs mt-0.5">3</span>
+              <div>
+                <strong class="text-foreground font-semibold">Static Resource Hosting (AWS S3):</strong>
+                <span class="text-muted-foreground"> Configuring S3 buckets for media assets and files, testing
+                  cloud-based asset retrieval.</span>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span
+                class="flex-shrink-0 flex h-6 w-6 items-center justify-center rounded-full bg-primary/20 text-primary font-bold text-xs mt-0.5">4</span>
+              <div>
+                <strong class="text-foreground font-semibold">Reverse Proxy & SSL (Nginx):</strong>
+                <span class="text-muted-foreground"> Setting up Nginx to handle request routing and path forwarding,
+                  using Let's Encrypt for TLS certificates.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Interactive CTA Card showing that THIS boilerplate is the deployment -->
+        <div
+          class="rounded-2xl border border-primary/25 bg-card/80 p-8 shadow-lg shadow-primary/5 flex flex-col justify-between text-center relative overflow-hidden backdrop-blur">
+          <div class="absolute -top-12 -right-12 h-24 w-24 rounded-full bg-primary/10"></div>
+
+          <div class="mb-6">
+            <span
+              class="inline-flex items-center gap-1 rounded bg-emerald-500/15 px-3 py-1 text-xs font-bold text-emerald-600 mb-4">
+              ● Running in Personal Lab
+            </span>
+            <h4 class="text-lg font-bold mb-2">Boilerplate Demonstration Portal</h4>
+            <p class="text-xs sm:text-sm text-muted-foreground/90 leading-relaxed">
+              This running boilerplate application is the result of testing the containerized deployment workflow. Sign
+              in here to inspect operational dashboards, role settings, and user logs.
+            </p>
+          </div>
+
+          <button (click)="navigateToLogin()"
+            class="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground hover:bg-primary/95 transition-all shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/25 active:scale-95">
+            Enter Application Console
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="transition-transform group-hover:translate-x-1">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20 border-t border-border">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold tracking-tight mb-4">Technical Stack</h2>
+        <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        @for (skillGroup of skills; track skillGroup.category) {
+        <div
+          class="rounded-2xl border border-border bg-card p-6 shadow-sm hover:shadow-md hover:border-primary/40 transition-all">
+          <h3 class="text-lg font-bold text-primary mb-4 border-b border-border/60 pb-2">
+            {{ skillGroup.category }}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            @for (item of skillGroup.items; track item; let idx = $index) {
+            <span
+              [class]="'skill-badge-float inline-flex items-center gap-1.5 rounded bg-accent/60 px-3 py-1 text-xs font-semibold text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-200 skill-delay-' + (idx % 4)">
+              @if (item === 'Angular') {
+              <img src="/assets/images/icons/Angular.png" alt="Angular" class="w-4 h-4 object-contain" />
+              } @else if (item === 'Node.js') {
+              <img src="/assets/images/icons/Node.js.png" alt="Node.js" class="w-4 h-4 object-contain" />
+              } @else if (item === 'MongoDB') {
+              <img src="/assets/images/icons/MongoDB.png" alt="MongoDB" class="w-4 h-4 object-contain" />
+              } @else if (item === 'Flutter (Android)') {
+              <img src="/assets/images/icons/Flutter.png" alt="Flutter" class="w-4 h-4 object-contain" />
+              } @else if (item === 'JavaScript') {
+              <img src="/assets/images/icons/JavaScript.png" alt="JavaScript" class="w-4 h-4 object-contain" />
+              } @else if (item === 'TypeScript') {
+              <img src="/assets/images/icons/TypeScript.png" alt="TypeScript" class="w-4 h-4 object-contain" />
+              } @else if (item === 'HTML5') {
+              <img src="/assets/images/icons/HTML5.png" alt="HTML5" class="w-4 h-4 object-contain" />
+              } @else if (item === 'CSS3') {
+              <img src="/assets/images/icons/CSS3.png" alt="CSS3" class="w-4 h-4 object-contain" />
+              } @else if (item === 'MySQL') {
+              <img src="/assets/images/icons/MySQL.png" alt="MySQL" class="w-4 h-4 object-contain" />
+              } @else if (item === 'PostgreSQL') {
+              <img src="/assets/images/icons/PostgresSQL.png" alt="PostgreSQL" class="w-4 h-4 object-contain" />
+              } @else if (item === 'Postman') {
+              <img src="/assets/images/icons/Postman.png" alt="Postman" class="w-4 h-4 object-contain" />
+              }
+              {{ item }}
+            </span>
+            }
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="py-20 border-t border-border bg-card/30">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold tracking-tight mb-4">Education</h2>
+        <div class="h-1 w-12 bg-primary mx-auto rounded-full"></div>
+      </div>
+
+      <div
+        class="rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col sm:flex-row justify-between items-start gap-4">
+        <div>
+          <h3 class="text-xl font-bold">{{ education.degree }}</h3>
+          <p class="text-md text-foreground/80 font-medium mt-1">{{ education.institution }}</p>
+          <span
+            class="inline-flex items-center gap-1 rounded bg-primary/10 px-2.5 py-0.5 text-xs font-bold text-primary mt-3">
+            {{ education.grade }}
+          </span>
+        </div>
+        <div class="flex-shrink-0 text-left sm:text-right">
+          <span class="inline-flex rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
+            {{ education.duration }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border bg-card py-8 mt-auto">
+    <div class="container mx-auto px-6 max-w-5xl text-center text-xs sm:text-sm text-muted-foreground">
+      <p>© 2026 {{ profile.name }}. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
